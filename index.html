@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考评大会大屏展示系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#0FC6C2',
+                        success: '#00B42A',
+                        warning: '#FF7D00',
+                        danger: '#F53F3F',
+                        info: '#86909C',
+                        dark: '#1D2129',
+                        light: '#F2F3F5'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .card-glass {
+                backdrop-filter: blur(8px);
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+            .progress-bg {
+                background: linear-gradient(90deg, #165DFF 0%, #0FC6C2 100%);
+            }
+        }
+    </style>
+    
+    <style>
+        /* 基础样式 */
+        body {
+            background-color: #0a101f;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(22, 93, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(15, 198, 194, 0.1) 0%, transparent 20%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+        
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(22, 93, 255, 0.5);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(22, 93, 255, 0.8);
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .animate-pulse-slow {
+            animation: pulse 3s infinite;
+        }
+        
+        /* 进度条动画 */
+        @keyframes progress {
+            from { width: 0; }
+            to { width: var(--progress-width); }
+        }
+        .progress-bar {
+            animation: progress 1.5s ease-out forwards;
+        }
+        
+        /* 进度条渐变色 */
+        .progress-gradient {
+            background: linear-gradient(90deg, #008683 0%, #75ece4 100%);
+        }
+        
+        /* 响应式字体 */
+        @media (min-width: 1920px) {
+            html {
+                font-size: 18px;
+            }
+        }
+        
+        /* 悬停效果 */
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(22, 93, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen">
+    <!-- 顶部标题栏 -->
+        <header class="bg-dark/80 backdrop-blur-md border-b border-white/10 fixed top-0 left-0 right-0 z-50 shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <i class="fa fa-bar-chart text-primary text-3xl"></i>
+                    <h1 class="text-[clamp(1.2rem,2.5vw,2rem)] font-bold text-white">
+                        考评大会大屏展示系统
+                    </h1>
+                </div>
+                
+                <!-- 主题切换按钮 -->
+                <div class="flex gap-4">
+                    <button id="completion-tab" class="px-6 py-2 bg-primary text-white rounded-lg font-semibold transition-all duration-300 text-[clamp(0.9rem,1.5vw,1.2rem)]">
+                        <i class="fa fa-tasks mr-2"></i>
+                        2025年任务完成情况
+                    </button>
+                    <button id="comparison-tab" class="px-6 py-2 bg-white/10 text-white hover:bg-white/20 rounded-lg font-semibold transition-all duration-300 text-[clamp(0.9rem,1.5vw,1.2rem)]">
+                        <i class="fa fa-line-chart mr-2"></i>
+                        2024-2025年任务完成对比情况
+                    </button>
+                </div>
+                
+                <div class="text-right">
+                    <div class="text-[clamp(1rem,2vw,1.5rem)] font-semibold text-primary">
+                        <span id="current-time"></span>
+                    </div>
+                    <div class="text-info text-sm">
+                        <span id="current-date"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-24">
+        <!-- 第一部分：2025年任务完成情况 -->
+        <section id="completion-section" class="mb-12 transition-opacity duration-300">
+            <div class="flex items-center gap-3 mb-6 mt-6">
+                <div class="h-8 w-1 bg-primary rounded-full"></div>
+                <h2 class="text-[clamp(1rem,1.5vw,1.6rem)] font-bold">
+                    <i class="fa fa-tasks mr-2 text-primary"></i>
+                    2025年任务完成情况
+                </h2>
+            </div>
+            
+            <!-- 赛道切换 -->
+            <div class="flex gap-4 mb-8">
+                <button id="science-tab" class="px-6 py-3 bg-primary text-white rounded-lg font-semibold transition-all duration-300">
+                    理工类学院
+                </button>
+                <button id="humanity-tab" class="px-6 py-3 bg-white/10 text-white hover:bg-white/20 rounded-lg font-semibold transition-all duration-300">
+                    人文社科学院
+                </button>
+            </div>
+            
+            <!-- 排行榜 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fa fa-trophy text-warning mr-2"></i>
+                        完成率排名
+                    </h3>
+                    <div id="completion-rank" class="space-y-4">
+                        <!-- 排名将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+                
+                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 lg:col-span-2">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fa fa-pie-chart text-secondary mr-2"></i>
+                        整体完成情况分析
+                    </h3>
+                    <div class="h-96 mt-8">
+                        <canvas id="completion-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 学院详细数据 -->
+            <div id="science-content" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 理工类学院数据将通过JavaScript动态生成 -->
+            </div>
+            
+            <div id="humanity-content" class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
+                <!-- 人文社科学院数据将通过JavaScript动态生成 -->
+            </div>
+        </section>
+
+        <!-- 第二部分：年度对比情况 -->
+        <section id="comparison-section" class="transition-opacity duration-300">
+            <div class="flex items-center gap-3 mb-6 mt-6">
+                <div class="h-8 w-1 bg-secondary rounded-full"></div>
+                <h2 class="text-[clamp(1rem,1.5vw,1.6rem)] font-bold">
+                    <i class="fa fa-line-chart mr-2 text-secondary"></i>
+                    2024-2025年任务完成对比情况
+                </h2>
+            </div>
+            
+            <!-- 赛道切换 -->
+            <div class="flex gap-4 mb-8">
+                <button id="science-compare-tab" class="px-6 py-3 bg-primary text-white rounded-lg font-semibold transition-all duration-300">
+                    理工类学院
+                </button>
+                <button id="humanity-compare-tab" class="px-6 py-3 bg-white/10 text-white hover:bg-white/20 rounded-lg font-semibold transition-all duration-300">
+                    人文社科学院
+                </button>
+            </div>
+            
+            <!-- 进步率排行榜 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fa fa-arrow-up text-success mr-2"></i>
+                        进步率排名
+                    </h3>
+                    <div id="progress-rank" class="space-y-4">
+                        <!-- 排名将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+                
+                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 lg:col-span-2">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fa fa-area-chart text-success mr-2"></i>
+                        年度进步趋势分析
+                    </h3>
+                    <div class="h-96 mt-8">
+                        <canvas id="progress-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 年度对比详细数据 -->
+            <div id="science-compare-content" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 理工类学院对比数据将通过JavaScript动态生成 -->
+            </div>
+            
+            <div id="humanity-compare-content" class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
+                <!-- 人文社科学院对比数据将通过JavaScript动态生成 -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark/80 backdrop-blur-md border-t border-white/10 py-4 mt-12">
+        <div class="container mx-auto px-6 text-center text-info">
+            <p>© 2025 考评大会大屏展示系统 - 技术支持 钱问教育科技研究院（河南）有限公司</p>
+        </div>
+    </footer>
+
+    <!-- 数据和交互逻辑 -->
+    <script>
+        // 模拟数据
+        const scienceColleges = [
+            { name: '计算机科学与技术学院', tasks: [
+                { name: '人才培养', completion2025: 95, completion2024: 88 },
+                { name: '科学研究', completion2025: 92, completion2024: 85 },
+                { name: '人才队伍', completion2025: 89, completion2024: 82 },
+                { name: '建设', completion2025: 90, completion2024: 82 },
+                { name: '合作交流', completion2025: 87, completion2024: 79 },
+                { name: '成果转化与社会服务', completion2025: 85, completion2024: 75 },
+                { name: '党建思政', completion2025: 93, completion2024: 88 }
+            ]},
+            { name: '电子工程学院', tasks: [
+                { name: '人才培养', completion2025: 92, completion2024: 85 },
+                { name: '科学研究', completion2025: 90, completion2024: 82 },
+                { name: '人才队伍', completion2025: 88, completion2024: 80 },
+                { name: '建设', completion2025: 88, completion2024: 80 },
+                { name: '合作交流', completion2025: 86, completion2024: 78 },
+                { name: '成果转化与社会服务', completion2025: 87, completion2024: 76 },
+                { name: '党建思政', completion2025: 91, completion2024: 86 }
+            ]},
+            { name: '机械工程学院', tasks: [
+                { name: '人才培养', completion2025: 90, completion2024: 83 },
+                { name: '科学研究', completion2025: 88, completion2024: 80 },
+                { name: '人才队伍', completion2025: 87, completion2024: 79 },
+                { name: '建设', completion2025: 86, completion2024: 78 },
+                { name: '合作交流', completion2025: 85, completion2024: 77 },
+                { name: '成果转化与社会服务', completion2025: 90, completion2024: 79 },
+                { name: '党建思政', completion2025: 92, completion2024: 87 }
+            ]},
+            { name: '材料科学与工程学院', tasks: [
+                { name: '人才培养', completion2025: 88, completion2024: 82 },
+                { name: '科学研究', completion2025: 86, completion2024: 78 },
+                { name: '人才队伍', completion2025: 86, completion2024: 80 },
+                { name: '建设', completion2025: 84, completion2024: 77 },
+                { name: '合作交流', completion2025: 84, completion2024: 76 },
+                { name: '成果转化与社会服务', completion2025: 83, completion2024: 75 },
+                { name: '党建思政', completion2025: 90, completion2024: 85 }
+            ]},
+            { name: '土木工程学院', tasks: [
+                { name: '人才培养', completion2025: 89, completion2024: 82 },
+                { name: '科学研究', completion2025: 87, completion2024: 79 },
+                { name: '人才队伍', completion2025: 85, completion2024: 78 },
+                { name: '建设', completion2025: 85, completion2024: 78 },
+                { name: '合作交流', completion2025: 86, completion2024: 78 },
+                { name: '成果转化与社会服务', completion2025: 88, completion2024: 78 },
+                { name: '党建思政', completion2025: 91, completion2024: 86 }
+            ]},
+            { name: '化学与化工学院', tasks: [
+                { name: '人才培养', completion2025: 86, completion2024: 80 },
+                { name: '科学研究', completion2025: 85, completion2024: 77 },
+                { name: '人才队伍', completion2025: 84, completion2024: 78 },
+                { name: '建设', completion2025: 83, completion2024: 76 },
+                { name: '合作交流', completion2025: 83, completion2024: 75 },
+                { name: '成果转化与社会服务', completion2025: 82, completion2024: 74 },
+                { name: '党建思政', completion2025: 89, completion2024: 84 }
+            ]},
+            { name: '数学与统计学院', tasks: [
+                { name: '人才培养', completion2025: 87, completion2024: 81 },
+                { name: '科学研究', completion2025: 89, completion2024: 82 },
+                { name: '人才队伍', completion2025: 88, completion2024: 81 },
+                { name: '建设', completion2025: 88, completion2024: 80 },
+                { name: '合作交流', completion2025: 82, completion2024: 75 },
+                { name: '成果转化与社会服务', completion2025: 80, completion2024: 72 },
+                { name: '党建思政', completion2025: 92, completion2024: 87 }
+            ]},
+            { name: '物理学院', tasks: [
+                { name: '人才培养', completion2025: 85, completion2024: 79 },
+                { name: '科学研究', completion2025: 87, completion2024: 79 },
+                { name: '人才队伍', completion2025: 86, completion2024: 80 },
+                { name: '建设', completion2025: 86, completion2024: 78 },
+                { name: '合作交流', completion2025: 83, completion2024: 76 },
+                { name: '成果转化与社会服务', completion2025: 81, completion2024: 73 },
+                { name: '党建思政', completion2025: 90, completion2024: 85 }
+            ]},
+            { name: '生命科学学院', tasks: [
+                { name: '人才培养', completion2025: 86, completion2024: 80 },
+                { name: '科学研究', completion2025: 88, completion2024: 80 },
+                { name: '人才队伍', completion2025: 85, completion2024: 79 },
+                { name: '建设', completion2025: 84, completion2024: 77 },
+                { name: '合作交流', completion2025: 85, completion2024: 77 },
+                { name: '成果转化与社会服务', completion2025: 84, completion2024: 76 },
+                { name: '党建思政', completion2025: 91, completion2024: 86 }
+            ]},
+            { name: '自动化学院', tasks: [
+                { name: '人才培养', completion2025: 93, completion2024: 85 },
+                { name: '科学研究', completion2025: 91, completion2024: 83 },
+                { name: '人才队伍', completion2025: 90, completion2024: 83 },
+                { name: '建设', completion2025: 89, completion2024: 81 },
+                { name: '合作交流', completion2025: 87, completion2024: 79 },
+                { name: '成果转化与社会服务', completion2025: 86, completion2024: 77 },
+                { name: '党建思政', completion2025: 94, completion2024: 89 }
+            ]},
+            { name: '环境科学与工程学院', tasks: [
+                { name: '人才培养', completion2025: 88, completion2024: 82 },
+                { name: '科学研究', completion2025: 86, completion2024: 78 },
+                { name: '人才队伍', completion2025: 85, completion2024: 79 },
+                { name: '建设', completion2025: 85, completion2024: 78 },
+                { name: '合作交流', completion2025: 88, completion2024: 80 },
+                { name: '成果转化与社会服务', completion2025: 89, completion2024: 80 },
+                { name: '党建思政', completion2025: 92, completion2024: 87 }
+            ]}
+        ];
+        
+        const humanityColleges = [
+            { name: '文学院', tasks: [
+                { name: '人才培养', completion2025: 90, completion2024: 83 },
+                { name: '科学研究', completion2025: 88, completion2024: 80 },
+                { name: '人才队伍', completion2025: 89, completion2024: 82 },
+                { name: '建设', completion2025: 87, completion2024: 80 },
+                { name: '合作交流', completion2025: 86, completion2024: 79 },
+                { name: '成果转化与社会服务', completion2025: 85, completion2024: 78 },
+                { name: '党建思政', completion2025: 93, completion2024: 88 }
+            ]},
+            { name: '法学院', tasks: [
+                { name: '人才培养', completion2025: 88, completion2024: 81 },
+                { name: '科学研究', completion2025: 87, completion2024: 79 },
+                { name: '人才队伍', completion2025: 86, completion2024: 80 },
+                { name: '建设', completion2025: 86, completion2024: 79 },
+                { name: '合作交流', completion2025: 85, completion2024: 78 },
+                { name: '成果转化与社会服务', completion2025: 88, completion2024: 80 },
+                { name: '党建思政', completion2025: 92, completion2024: 87 }
+            ]},
+            { name: '经济学院', tasks: [
+                { name: '人才培养', completion2025: 91, completion2024: 84 },
+                { name: '科学研究', completion2025: 90, completion2024: 82 },
+                { name: '人才队伍', completion2025: 90, completion2024: 83 },
+                { name: '建设', completion2025: 89, completion2024: 82 },
+                { name: '合作交流', completion2025: 88, completion2024: 80 },
+                { name: '成果转化与社会服务', completion2025: 87, completion2024: 79 },
+                { name: '党建思政', completion2025: 94, completion2024: 89 }
+            ]},
+            { name: '管理学院', tasks: [
+                { name: '人才培养', completion2025: 92, completion2024: 85 },
+                { name: '科学研究', completion2025: 91, completion2024: 83 },
+                { name: '人才队伍', completion2025: 91, completion2024: 84 },
+                { name: '建设', completion2025: 90, completion2024: 83 },
+                { name: '合作交流', completion2025: 89, completion2024: 82 },
+                { name: '成果转化与社会服务', completion2025: 89, completion2024: 81 },
+                { name: '党建思政', completion2025: 95, completion2024: 90 }
+            ]},
+            { name: '外语学院', tasks: [
+                { name: '人才培养', completion2025: 89, completion2024: 82 },
+                { name: '科学研究', completion2025: 85, completion2024: 78 },
+                { name: '人才队伍', completion2025: 87, completion2024: 80 },
+                { name: '建设', completion2025: 86, completion2024: 79 },
+                { name: '合作交流', completion2025: 90, completion2024: 83 },
+                { name: '成果转化与社会服务', completion2025: 87, completion2024: 80 },
+                { name: '党建思政', completion2025: 92, completion2024: 87 }
+            ]},
+            { name: '历史学院', tasks: [
+                { name: '人才培养', completion2025: 87, completion2024: 80 },
+                { name: '科学研究', completion2025: 86, completion2024: 78 },
+                { name: '人才队伍', completion2025: 86, completion2024: 79 },
+                { name: '建设', completion2025: 85, completion2024: 78 },
+                { name: '合作交流', completion2025: 84, completion2024: 77 },
+                { name: '成果转化与社会服务', completion2025: 84, completion2024: 77 },
+                { name: '党建思政', completion2025: 91, completion2024: 86 }
+            ]},
+            { name: '教育学院', tasks: [
+                { name: '人才培养', completion2025: 93, completion2024: 86 },
+                { name: '科学研究', completion2025: 88, completion2024: 80 },
+                { name: '人才队伍', completion2025: 89, completion2024: 82 },
+                { name: '建设', completion2025: 88, completion2024: 81 },
+                { name: '合作交流', completion2025: 87, completion2024: 80 },
+                { name: '成果转化与社会服务', completion2025: 90, completion2024: 83 },
+                { name: '党建思政', completion2025: 94, completion2024: 89 }
+            ]},
+            { name: '艺术学院', tasks: [
+                { name: '人才培养', completion2025: 90, completion2024: 83 },
+                { name: '科学研究', completion2025: 84, completion2024: 77 },
+                { name: '人才队伍', completion2025: 86, completion2024: 79 },
+                { name: '建设', completion2025: 85, completion2024: 78 },
+                { name: '合作交流', completion2025: 88, completion2024: 81 },
+                { name: '成果转化与社会服务', completion2025: 91, completion2024: 84 },
+                { name: '党建思政', completion2025: 92, completion2024: 87 }
+            ]}
+        ];
+        
+        // 辅助函数：计算完成率
+        function calculateCompletionRate(tasks) {
+            const sum = tasks.reduce((acc, task) => acc + task.completion2025, 0);
+            return Math.round((sum / (tasks.length * 100)) * 100);
+        }
+        
+        // 辅助函数：计算进步率
+        function calculateProgressRate(tasks) {
+            const sum2025 = tasks.reduce((acc, task) => acc + task.completion2025, 0);
+            const sum2024 = tasks.reduce((acc, task) => acc + task.completion2024, 0);
+            return Math.round(((sum2025 - sum2024) / (tasks.length * 100)) * 100);
+        }
+        
+        // 辅助函数：获取进度条颜色
+        function getProgressColor(percentage) {
+            if (percentage >= 90) return 'bg-success';
+            if (percentage >= 75) return 'bg-primary';
+            if (percentage >= 60) return 'bg-warning';
+            return 'bg-danger';
+        }
+        
+        // 辅助函数：获取进步趋势颜色
+        function getProgressTrendColor(progress) {
+            if (progress >= 10) return 'text-success';
+            if (progress >= 5) return 'text-primary';
+            if (progress >= 0) return 'text-warning';
+            return 'text-danger';
+        }
+        
+        // 更新时间显示
+        function updateDateTime() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('zh-CN', { hour12: false });
+            const date = now.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+            document.getElementById('current-time').textContent = time;
+            document.getElementById('current-date').textContent = date;
+        }
+        
+        // 初始化完成率排行榜
+        function initCompletionRank(colleges) {
+            const sortedColleges = [...colleges].sort((a, b) => {
+                const rateA = calculateCompletionRate(a.tasks);
+                const rateB = calculateCompletionRate(b.tasks);
+                return rateB - rateA;
+            });
+            
+            const rankContainer = document.getElementById('completion-rank');
+            rankContainer.innerHTML = '';
+            
+            sortedColleges.forEach((college, index) => {
+                const rate = calculateCompletionRate(college.tasks);
+                const rankEl = document.createElement('div');
+                rankEl.className = 'flex items-center justify-between group';
+                
+                const rankClass = index === 0 ? 'text-warning' : index === 1 ? 'text-warning/90' : index === 2 ? 'text-warning/80' : 'text-white';
+                const rankIcon = index < 3 ? `<i class="fa fa-medal ${rankClass} mr-2"></i>` : '';
+                
+                rankEl.innerHTML = `
+                    <div class="flex items-center">
+                        <span class="w-8 text-center font-bold ${rankClass}">${index + 1}</span>
+                        ${rankIcon}
+                        <span class="text-sm md:text-base group-hover:text-primary transition-colors">${college.name}</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-lg font-bold ${getProgressColor(rate)}">${rate}%</span>
+                    </div>
+                `;
+                
+                rankContainer.appendChild(rankEl);
+            });
+        }
+        
+        // 初始化进步率排行榜
+        function initProgressRank(colleges) {
+            const sortedColleges = [...colleges].sort((a, b) => {
+                const rateA = calculateProgressRate(a.tasks);
+                const rateB = calculateProgressRate(b.tasks);
+                return rateB - rateA;
+            });
+            
+            const rankContainer = document.getElementById('progress-rank');
+            rankContainer.innerHTML = '';
+            
+            sortedColleges.forEach((college, index) => {
+                const rate = calculateProgressRate(college.tasks);
+                const rankEl = document.createElement('div');
+                rankEl.className = 'flex items-center justify-between group';
+                
+                const rankClass = index === 0 ? 'text-success' : index === 1 ? 'text-success/90' : index === 2 ? 'text-success/80' : 'text-white';
+                const rankIcon = index < 3 ? `<i class="fa fa-trophy ${rankClass} mr-2"></i>` : '';
+                
+                rankEl.innerHTML = `
+                    <div class="flex items-center">
+                        <span class="w-8 text-center font-bold ${rankClass}">${index + 1}</span>
+                        ${rankIcon}
+                        <span class="text-sm md:text-base group-hover:text-secondary transition-colors">${college.name}</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa fa-arrow-up mr-1 ${getProgressTrendColor(rate)}"></i>
+                        <span class="text-lg font-bold ${getProgressTrendColor(rate)}">${rate}%</span>
+                    </div>
+                `;
+                
+                rankContainer.appendChild(rankEl);
+            });
+        }
+        
+        // 渲染学院完成情况卡片
+        function renderCollegeCards(colleges, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            colleges.forEach((college, collegeIndex) => {
+                const completionRate = calculateCompletionRate(college.tasks);
+                const card = document.createElement('div');
+                card.className = 'bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 animate-fadeIn';
+                card.style.animationDelay = `${0.1 * (collegeIndex % 6)}s`;
+                
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-semibold flex items-center">
+                            <i class="fa fa-university text-primary mr-2"></i>
+                            ${college.name}
+                        </h3>
+                        <div class="px-4 py-2 rounded-full ${getProgressColor(completionRate)} font-semibold">
+                            完成率: ${completionRate}%
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        ${college.tasks.map((task, taskIndex) => `
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm md:text-base">${task.name}</span>
+                                    <span class="text-sm font-semibold ${getProgressColor(task.completion2025)}">
+                                        ${task.completion2025}%
+                                    </span>
+                                </div>
+                                <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                                    <div 
+                                        class="h-full rounded-full progress-bar progress-bg"
+                                        style="--progress-width: ${task.completion2025}%; animation-delay: ${0.2 + taskIndex * 0.1}s"
+                                    ></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // 渲染年度对比卡片
+        function renderCompareCards(colleges, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            colleges.forEach((college, collegeIndex) => {
+                const progressRate = calculateProgressRate(college.tasks);
+                const card = document.createElement('div');
+                card.className = 'bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 animate-fadeIn';
+                card.style.animationDelay = `${0.1 * (collegeIndex % 6)}s`;
+                
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-semibold flex items-center">
+                            <i class="fa fa-university text-secondary mr-2"></i>
+                            ${college.name}
+                        </h3>
+                        <div class="px-4 py-2 rounded-full bg-secondary/20 text-secondary font-semibold">
+                            综合进步率: <i class="fa fa-arrow-up mr-1"></i>${progressRate}%
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        ${college.tasks.map((task, taskIndex) => {
+                            const progress = task.completion2025 - task.completion2024;
+                            return `
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-sm md:text-base">${task.name}</span>
+                                        <div class="flex items-center">
+                                            <span class="text-xs text-info mr-3">2024: ${task.completion2024}%</span>
+                                            <span class="text-xs text-info font-semibold">2025: ${task.completion2025}%</span>
+                                            <span class="ml-3 px-2 py-1 rounded-full text-xs font-semibold ${getProgressTrendColor(progress)}">
+                                                <i class="fa fa-arrow-up mr-1"></i>${progress}%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="h-4 bg-white/10 rounded-full overflow-hidden">
+                                        <div 
+                                            class="h-full rounded-full progress-bar progress-gradient"
+                                            style="--progress-width: ${(Math.abs(progress) / 15) * 100}%; width: ${(Math.abs(progress) / 15) * 100}%; animation-delay: ${0.2 + taskIndex * 0.1}s"
+                                        ></div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // 初始化完成情况图表
+        function initCompletionChart(colleges) {
+            const ctx = document.getElementById('completion-chart').getContext('2d');
+            const labels = colleges.map(c => c.name);
+            const data = colleges.map(c => calculateCompletionRate(c.tasks));
+            
+            // 销毁现有图表
+            if (window.completionChart) {
+                window.completionChart.destroy();
+            }
+            
+            window.completionChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '完成率 (%)',
+                        data: data,
+                        backgroundColor: data.map(value => {
+                            if (value >= 90) return '#00B42A';
+                            if (value >= 75) return '#165DFF';
+                            if (value >= 60) return '#FF7D00';
+                            return '#F53F3F';
+                        }),
+                        borderColor: data.map(value => {
+                            if (value >= 90) return '#00B42A';
+                            if (value >= 75) return '#165DFF';
+                            if (value >= 60) return '#FF7D00';
+                            return '#F53F3F';
+                        }),
+                        borderWidth: 1,
+                        barPercentage: 0.5,
+                        categoryPercentage: 0.6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(29, 33, 41, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return `完成率: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                font: {
+                                    size: 10
+                                },
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 初始化进步趋势图表
+        function initProgressChart(colleges) {
+            const ctx = document.getElementById('progress-chart').getContext('2d');
+            const labels = colleges.map(c => c.name);
+            const progressData = colleges.map(c => calculateProgressRate(c.tasks));
+            const completion2024 = colleges.map(c => {
+                const sum = c.tasks.reduce((acc, task) => acc + task.completion2024, 0);
+                return Math.round(sum / c.tasks.length);
+            });
+            const completion2025 = colleges.map(c => {
+                const sum = c.tasks.reduce((acc, task) => acc + task.completion2025, 0);
+                return Math.round(sum / c.tasks.length);
+            });
+            
+            // 销毁现有图表
+            if (window.progressChart) {
+                window.progressChart.destroy();
+            }
+            
+            window.progressChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: '进步率',
+                            data: progressData,
+                            backgroundColor: '#0FC6C2',
+                            borderColor: '#0FC6C2',
+                            borderWidth: 1,
+                            yAxisID: 'y',
+                            barPercentage: 0.6,
+                            categoryPercentage: 0.7
+                        },
+                        {
+                            label: '2024年',
+                            type: 'line',
+                            data: completion2024,
+                            borderColor: '#86909C',
+                            backgroundColor: 'rgba(134, 144, 156, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            fill: false,
+                            yAxisID: 'y1'
+                        },
+                        {
+                            label: '2025年',
+                            type: 'line',
+                            data: completion2025,
+                            borderColor: '#165DFF',
+                            backgroundColor: 'rgba(22, 93, 255, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.3,
+                            fill: false,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(29, 33, 41, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            borderWidth: 1,
+                            padding: 12,
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                font: {
+                                    size: 10
+                                },
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: '进步率 (%)',
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            beginAtZero: true,
+                            max: 16,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#0FC6C2',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: '完成率 (%)',
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
+                }
+            });
+        }
+        
+        // 初始化主题切换
+        function initThemeTabs() {
+            const completionSection = document.getElementById('completion-section');
+            const comparisonSection = document.getElementById('comparison-section');
+            
+            document.getElementById('completion-tab').addEventListener('click', () => {
+                // 滚动到页面顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // 激活完成情况主题
+                document.getElementById('completion-tab').classList.add('bg-primary');
+                document.getElementById('completion-tab').classList.remove('bg-white/10', 'hover:bg-white/20');
+                document.getElementById('comparison-tab').classList.remove('bg-primary');
+                document.getElementById('comparison-tab').classList.add('bg-white/10', 'hover:bg-white/20');
+                
+                // 使用不透明度实现平滑切换，避免页面重叠
+                if (comparisonSection.style.display !== 'none') {
+                    comparisonSection.style.opacity = '0';
+                    setTimeout(() => {
+                        comparisonSection.style.display = 'none';
+                        completionSection.style.opacity = '0';
+                        completionSection.style.display = 'block';
+                        setTimeout(() => {
+                            completionSection.style.opacity = '1';
+                        }, 50);
+                    }, 300);
+                }
+            });
+            
+            document.getElementById('comparison-tab').addEventListener('click', () => {
+                // 滚动到页面顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // 激活对比情况主题
+                document.getElementById('comparison-tab').classList.add('bg-primary');
+                document.getElementById('comparison-tab').classList.remove('bg-white/10', 'hover:bg-white/20');
+                document.getElementById('completion-tab').classList.remove('bg-primary');
+                document.getElementById('completion-tab').classList.add('bg-white/10', 'hover:bg-white/20');
+                
+                // 使用不透明度实现平滑切换，避免页面重叠
+                if (completionSection.style.display !== 'none') {
+                    completionSection.style.opacity = '0';
+                    setTimeout(() => {
+                        completionSection.style.display = 'none';
+                        comparisonSection.style.opacity = '0';
+                        comparisonSection.style.display = 'block';
+                        setTimeout(() => {
+                            comparisonSection.style.opacity = '1';
+                        }, 50);
+                    }, 300);
+                }
+            });
+        }
+        
+        // 初始化赛道切换
+        function initTabs() {
+            // 完成情况赛道切换
+            document.getElementById('science-tab').addEventListener('click', () => {
+                document.getElementById('science-tab').classList.add('bg-primary');
+                document.getElementById('science-tab').classList.remove('bg-white/10', 'hover:bg-white/20');
+                document.getElementById('humanity-tab').classList.remove('bg-primary');
+                document.getElementById('humanity-tab').classList.add('bg-white/10', 'hover:bg-white/20');
+                
+                document.getElementById('science-content').classList.remove('hidden');
+                document.getElementById('humanity-content').classList.add('hidden');
+                
+                initCompletionRank(scienceColleges);
+                initCompletionChart(scienceColleges);
+            });
+            
+            document.getElementById('humanity-tab').addEventListener('click', () => {
+                document.getElementById('humanity-tab').classList.add('bg-primary');
+                document.getElementById('humanity-tab').classList.remove('bg-white/10', 'hover:bg-white/20');
+                document.getElementById('science-tab').classList.remove('bg-primary');
+                document.getElementById('science-tab').classList.add('bg-white/10', 'hover:bg-white/20');
+                
+                document.getElementById('humanity-content').classList.remove('hidden');
+                document.getElementById('science-content').classList.add('hidden');
+                
+                initCompletionRank(humanityColleges);
+                initCompletionChart(humanityColleges);
+            });
+            
+            // 对比情况赛道切换
+            document.getElementById('science-compare-tab').addEventListener('click', () => {
+                document.getElementById('science-compare-tab').classList.add('bg-primary');
+                document.getElementById('science-compare-tab').classList.remove('bg-white/10', 'hover:bg-white/20');
+                document.getElementById('humanity-compare-tab').classList.remove('bg-primary');
+                document.getElementById('humanity-compare-tab').classList.add('bg-white/10', 'hover:bg-white/20');
+                
+                document.getElementById('science-compare-content').classList.remove('hidden');
+                document.getElementById('humanity-compare-content').classList.add('hidden');
+                
+                initProgressRank(scienceColleges);
+                initProgressChart(scienceColleges);
+            });
+            
+            document.getElementById('humanity-compare-tab').addEventListener('click', () => {
+                document.getElementById('humanity-compare-tab').classList.add('bg-primary');
+                document.getElementById('humanity-compare-tab').classList.remove('bg-white/10', 'hover:bg-white/20');
+                document.getElementById('science-compare-tab').classList.remove('bg-primary');
+                document.getElementById('science-compare-tab').classList.add('bg-white/10', 'hover:bg-white/20');
+                
+                document.getElementById('humanity-compare-content').classList.remove('hidden');
+                document.getElementById('science-compare-content').classList.add('hidden');
+                
+                initProgressRank(humanityColleges);
+                initProgressChart(humanityColleges);
+            });
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 更新时间
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            
+            // 初始设置主题section的显示状态
+            const completionSection = document.getElementById('completion-section');
+            const comparisonSection = document.getElementById('comparison-section');
+            
+            // 确保完成情况section默认可见，对比情况section准备好但默认隐藏
+            completionSection.style.display = 'block';
+            completionSection.style.opacity = '1';
+            comparisonSection.style.display = 'none';
+            comparisonSection.style.opacity = '0';
+            
+            // 初始化主题切换
+            initThemeTabs();
+            
+            // 初始化赛道切换
+            initTabs();
+            
+            // 初始加载理工类学院数据
+            renderCollegeCards(scienceColleges, 'science-content');
+            renderCollegeCards(humanityColleges, 'humanity-content');
+            renderCompareCards(scienceColleges, 'science-compare-content');
+            renderCompareCards(humanityColleges, 'humanity-compare-content');
+            
+            // 初始化排行榜和图表
+            initCompletionRank(scienceColleges);
+            initProgressRank(scienceColleges);
+            initCompletionChart(scienceColleges);
+            initProgressChart(scienceColleges);
+            
+            // 添加响应式调整
+            window.addEventListener('resize', () => {
+                initCompletionChart(document.getElementById('science-content').classList.contains('hidden') ? humanityColleges : scienceColleges);
+                initProgressChart(document.getElementById('science-compare-content').classList.contains('hidden') ? humanityColleges : scienceColleges);
+            });
+        });
+    </script>
+</body>
+</html>
