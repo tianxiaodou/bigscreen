@@ -564,8 +564,18 @@
             const container = document.getElementById(containerId);
             container.innerHTML = '';
             
+            // 对学院按完成率排序，用于计算排名
+            const sortedColleges = [...colleges].sort((a, b) => {
+                const rateA = calculateCompletionRate(a.tasks);
+                const rateB = calculateCompletionRate(b.tasks);
+                return rateB - rateA;
+            });
+            
             colleges.forEach((college, collegeIndex) => {
                 const completionRate = calculateCompletionRate(college.tasks);
+                // 计算排名
+                const rank = sortedColleges.findIndex(c => c.name === college.name) + 1;
+                const total = colleges.length;
                 const card = document.createElement('div');
                 card.className = 'bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 animate-fadeIn';
                 card.style.animationDelay = `${0.1 * (collegeIndex % 6)}s`;
@@ -577,7 +587,7 @@
                             ${college.name}
                         </h3>
                         <div class="px-4 py-2 rounded-full ${getProgressColor(completionRate)} font-semibold">
-                            完成率: ${completionRate}%
+                            完成率: ${completionRate}% | 排名：${rank}/${total}
                         </div>
                     </div>
                     <div class="space-y-4">
@@ -609,8 +619,18 @@
             const container = document.getElementById(containerId);
             container.innerHTML = '';
             
+            // 对学院按进步率排序，用于计算排名
+            const sortedColleges = [...colleges].sort((a, b) => {
+                const rateA = calculateProgressRate(a.tasks);
+                const rateB = calculateProgressRate(b.tasks);
+                return rateB - rateA;
+            });
+            
             colleges.forEach((college, collegeIndex) => {
                 const progressRate = calculateProgressRate(college.tasks);
+                // 计算排名
+                const rank = sortedColleges.findIndex(c => c.name === college.name) + 1;
+                const total = colleges.length;
                 const card = document.createElement('div');
                 card.className = 'bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 animate-fadeIn';
                 card.style.animationDelay = `${0.1 * (collegeIndex % 6)}s`;
@@ -622,7 +642,7 @@
                             ${college.name}
                         </h3>
                         <div class="px-4 py-2 rounded-full bg-secondary/20 text-secondary font-semibold">
-                            综合进步率: <i class="fa fa-arrow-up mr-1"></i>${progressRate}%
+                            综合进步率: <i class="fa fa-arrow-up mr-1"></i>${progressRate}% | 排名：${rank}/${total}
                         </div>
                     </div>
                     <div class="space-y-4">
