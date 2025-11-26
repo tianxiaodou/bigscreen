@@ -125,7 +125,7 @@
 <body class="text-white min-h-screen">
     <!-- 顶部标题栏 -->
         <header class="bg-dark/80 backdrop-blur-md border-b border-white/10 fixed top-0 left-0 right-0 z-50 shadow-lg">
-        <div class="container mx-auto px-6 py-4">
+        <div class="max-w-[95vw] mx-auto px-6 py-4">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-3">
                     <i class="fa fa-bar-chart text-primary text-3xl"></i>
@@ -158,7 +158,7 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-24">
+    <main class="max-w-[95vw] mx-auto px-4 py-24">
         <!-- 第一部分：2025年任务完成情况 -->
         <section id="completion-section" class="mb-12 transition-opacity duration-300">
             <div class="flex items-center gap-3 mb-6 mt-6">
@@ -277,181 +277,336 @@
         // 模拟数据
         const scienceColleges = [
             { name: '计算机科学与技术学院', tasks: [
-                { name: '人才培养', completion2025: 95, completion2024: 88 },
-                { name: '科学研究', completion2025: 92, completion2024: 85 },
-                { name: '人才队伍', completion2025: 89, completion2024: 82 },
-                { name: '建设', completion2025: 90, completion2024: 82 },
-                { name: '合作交流', completion2025: 87, completion2024: 79 },
-                { name: '成果转化与社会服务', completion2025: 85, completion2024: 75 },
-                { name: '党建思政', completion2025: 93, completion2024: 88 }
+                { name: '专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]', completion2025: 95, completion2024: 88, value2025: 8, value2024: 5 },
+                { name: '自评报告通过专家评审取得进校资格', completion2025: 100, completion2024: 90, value2025: 1, value2024: 1 },
+                { name: '省级教学成果奖特等奖(项)', completion2025: 80, completion2024: 70, value2025: 3, value2024: 2 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 85, completion2024: 78, value2025: 45.2, value2024: 38.5 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 92, completion2024: 85, value2025: 94.8, value2024: 88.2 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 88, completion2024: 80, value2025: 82.5, value2024: 76.8 },
+                { name: '专业录取位次', completion2025: 90, completion2024: 82, value2025: 25600, value2024: 32800 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 75, completion2024: 68, value2025: 8.5, value2024: 5.2 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 93, completion2024: 85, value2025: 125, value2024: 98 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 89, completion2024: 81, value2025: 3.85, value2024: 2.98 },
+                { name: '国家自然科学基金项目（项)', completion2025: 91, completion2024: 83 },
+                { name: '科技部国际合作重点研发计划；四川省科技厅国际科技合作项目（项)', completion2025: 84, completion2024: 76 },
+                { name: '高水平学术专著（本)', completion2025: 78, completion2024: 70 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 94, completion2024: 86 },
+                { name: '授权发明专利数（项)', completion2025: 92, completion2024: 84 },
+                { name: '国家自然科学奖、技术发明奖以及科技进步奖（项)', completion2025: 87, completion2024: 79 },
+                { name: '教育部科学技术奖、军队国防奖、中国专利奖以及其他部委科技成果奖/优秀成果奖（项)', completion2025: 85, completion2024: 77 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 89, completion2024: 81 },
+                { name: '社会力量奖（项）', completion2025: 76, completion2024: 68 },
+                { name: '新增部省级以上科研平台（个)', completion2025: 82, completion2024: 74 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 90, completion2024: 82 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 88, completion2024: 80 }
             ]},
             { name: '电子工程学院', tasks: [
-                { name: '人才培养', completion2025: 92, completion2024: 85 },
-                { name: '科学研究', completion2025: 90, completion2024: 82 },
-                { name: '人才队伍', completion2025: 88, completion2024: 80 },
-                { name: '建设', completion2025: 88, completion2024: 80 },
-                { name: '合作交流', completion2025: 86, completion2024: 78 },
-                { name: '成果转化与社会服务', completion2025: 87, completion2024: 76 },
-                { name: '党建思政', completion2025: 91, completion2024: 86 }
+                { name: '专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]', completion2025: 92, completion2024: 85, value2025: 6, value2024: 4 },
+                { name: '省级教学成果奖特等奖(项)', completion2025: 78, completion2024: 68, value2025: 2, value2024: 1 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 88, completion2024: 80, value2025: 48.6, value2024: 42.3 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 94, completion2024: 87, value2025: 95.5, value2024: 89.8 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 86, completion2024: 78, value2025: 80.2, value2024: 74.5 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 79, completion2024: 71, value2025: 9.8, value2024: 6.5 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 91, completion2024: 83, value2025: 118, value2024: 92 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 90, completion2024: 82, value2025: 3.52, value2024: 2.78 },
+                { name: '国家自然科学基金项目（项)', completion2025: 93, completion2024: 85, value2025: 42, value2024: 35 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 95, completion2024: 87, value2025: 215, value2024: 178 },
+                { name: '授权发明专利数（项)', completion2025: 91, completion2024: 83 },
+                { name: '教育部科学技术奖、军队国防奖、中国专利奖以及其他部委科技成果奖/优秀成果奖（项)', completion2025: 86, completion2024: 78 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 88, completion2024: 80 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 92, completion2024: 84 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 90, completion2024: 82 }
             ]},
             { name: '机械工程学院', tasks: [
-                { name: '人才培养', completion2025: 90, completion2024: 83 },
-                { name: '科学研究', completion2025: 88, completion2024: 80 },
-                { name: '人才队伍', completion2025: 87, completion2024: 79 },
-                { name: '建设', completion2025: 86, completion2024: 78 },
-                { name: '合作交流', completion2025: 85, completion2024: 77 },
-                { name: '成果转化与社会服务', completion2025: 90, completion2024: 79 },
-                { name: '党建思政', completion2025: 92, completion2024: 87 }
+                { name: '专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]', completion2025: 90, completion2024: 83 },
+                { name: '自评报告通过专家评审取得进校资格', completion2025: 98, completion2024: 88 },
+                { name: '省级教学成果奖特等奖(项)', completion2025: 76, completion2024: 66 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 86, completion2024: 79 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 91, completion2024: 84 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 85, completion2024: 77 },
+                { name: '专业录取位次', completion2025: 88, completion2024: 80 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 77, completion2024: 69 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 92, completion2024: 84 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 87, completion2024: 79 },
+                { name: '国家自然科学基金项目（项)', completion2025: 89, completion2024: 81 },
+                { name: '高水平学术专著（本)', completion2025: 76, completion2024: 68 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 90, completion2024: 82 },
+                { name: '授权发明专利数（项)', completion2025: 88, completion2024: 80 },
+                { name: '教育部科学技术奖、军队国防奖、中国专利奖以及其他部委科技成果奖/优秀成果奖（项)', completion2025: 84, completion2024: 76 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 87, completion2024: 79 },
+                { name: '新增部省级以上科研平台（个)', completion2025: 81, completion2024: 73 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 89, completion2024: 81 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 87, completion2024: 79 }
             ]},
             { name: '材料科学与工程学院', tasks: [
-                { name: '人才培养', completion2025: 88, completion2024: 82 },
-                { name: '科学研究', completion2025: 86, completion2024: 78 },
-                { name: '人才队伍', completion2025: 86, completion2024: 80 },
-                { name: '建设', completion2025: 84, completion2024: 77 },
-                { name: '合作交流', completion2025: 84, completion2024: 76 },
-                { name: '成果转化与社会服务', completion2025: 83, completion2024: 75 },
-                { name: '党建思政', completion2025: 90, completion2024: 85 }
+                { name: '专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]', completion2025: 88, completion2024: 82 },
+                { name: '省级教学成果奖特等奖(项)', completion2025: 74, completion2024: 64 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 84, completion2024: 77 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 90, completion2024: 83 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 78, completion2024: 70 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 89, completion2024: 81 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 91, completion2024: 83 },
+                { name: '国家自然科学基金项目（项)', completion2025: 92, completion2024: 84 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 93, completion2024: 85 },
+                { name: '授权发明专利数（项)', completion2025: 90, completion2024: 82 },
+                { name: '教育部科学技术奖、军队国防奖、中国专利奖以及其他部委科技成果奖/优秀成果奖（项)', completion2025: 87, completion2024: 79 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 89, completion2024: 81 },
+                { name: '新增部省级以上科研平台（个)', completion2025: 83, completion2024: 75 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 88, completion2024: 80 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 86, completion2024: 78 }
             ]},
             { name: '土木工程学院', tasks: [
-                { name: '人才培养', completion2025: 89, completion2024: 82 },
-                { name: '科学研究', completion2025: 87, completion2024: 79 },
-                { name: '人才队伍', completion2025: 85, completion2024: 78 },
-                { name: '建设', completion2025: 85, completion2024: 78 },
-                { name: '合作交流', completion2025: 86, completion2024: 78 },
-                { name: '成果转化与社会服务', completion2025: 88, completion2024: 78 },
-                { name: '党建思政', completion2025: 91, completion2024: 86 }
+                { name: '专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]', completion2025: 89, completion2024: 82 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 87, completion2024: 80 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 91, completion2024: 84 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 86, completion2024: 79 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 79, completion2024: 71 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 90, completion2024: 82 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 88, completion2024: 80 },
+                { name: '国家自然科学基金项目（项)', completion2025: 90, completion2024: 82 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 91, completion2024: 83 },
+                { name: '授权发明专利数（项)', completion2025: 89, completion2024: 81 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 88, completion2024: 80 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 87, completion2024: 80 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 86, completion2024: 79 }
             ]},
             { name: '化学与化工学院', tasks: [
-                { name: '人才培养', completion2025: 86, completion2024: 80 },
-                { name: '科学研究', completion2025: 85, completion2024: 77 },
-                { name: '人才队伍', completion2025: 84, completion2024: 78 },
-                { name: '建设', completion2025: 83, completion2024: 76 },
-                { name: '合作交流', completion2025: 83, completion2024: 75 },
-                { name: '成果转化与社会服务', completion2025: 82, completion2024: 74 },
-                { name: '党建思政', completion2025: 89, completion2024: 84 }
+                { name: '专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]', completion2025: 86, completion2024: 80 },
+                { name: '省级教学成果奖特等奖(项)', completion2025: 72, completion2024: 62 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 83, completion2024: 76 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 89, completion2024: 82 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 77, completion2024: 69 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 87, completion2024: 79 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 86, completion2024: 78 },
+                { name: '国家自然科学基金项目（项)', completion2025: 88, completion2024: 80 },
+                { name: '高水平学术专著（本)', completion2025: 79, completion2024: 71 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 90, completion2024: 82 },
+                { name: '授权发明专利数（项)', completion2025: 88, completion2024: 80 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 85, completion2024: 78 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 84, completion2024: 77 }
             ]},
             { name: '数学与统计学院', tasks: [
-                { name: '人才培养', completion2025: 87, completion2024: 81 },
-                { name: '科学研究', completion2025: 89, completion2024: 82 },
-                { name: '人才队伍', completion2025: 88, completion2024: 81 },
-                { name: '建设', completion2025: 88, completion2024: 80 },
-                { name: '合作交流', completion2025: 82, completion2024: 75 },
-                { name: '成果转化与社会服务', completion2025: 80, completion2024: 72 },
-                { name: '党建思政', completion2025: 92, completion2024: 87 }
+                { name: '省级教学成果奖特等奖(项)', completion2025: 75, completion2024: 65 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 88, completion2024: 81 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 90, completion2024: 83 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 87, completion2024: 80 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 78, completion2024: 70 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 89, completion2024: 81 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 91, completion2024: 83 },
+                { name: '国家自然科学基金项目（项)', completion2025: 92, completion2024: 84 },
+                { name: '高水平学术专著（本)', completion2025: 82, completion2024: 74 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 94, completion2024: 86 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 90, completion2024: 83 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 88, completion2024: 81 }
             ]},
             { name: '物理学院', tasks: [
-                { name: '人才培养', completion2025: 85, completion2024: 79 },
-                { name: '科学研究', completion2025: 87, completion2024: 79 },
-                { name: '人才队伍', completion2025: 86, completion2024: 80 },
-                { name: '建设', completion2025: 86, completion2024: 78 },
-                { name: '合作交流', completion2025: 83, completion2024: 76 },
-                { name: '成果转化与社会服务', completion2025: 81, completion2024: 73 },
-                { name: '党建思政', completion2025: 90, completion2024: 85 }
+                { name: '省级教学成果奖特等奖(项)', completion2025: 73, completion2024: 63 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 86, completion2024: 79 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 89, completion2024: 82 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 77, completion2024: 69 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 88, completion2024: 80 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 89, completion2024: 81 },
+                { name: '国家自然科学基金项目（项)', completion2025: 91, completion2024: 83 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 93, completion2024: 85 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 88, completion2024: 82 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 87, completion2024: 80 }
             ]},
             { name: '生命科学学院', tasks: [
-                { name: '人才培养', completion2025: 86, completion2024: 80 },
-                { name: '科学研究', completion2025: 88, completion2024: 80 },
-                { name: '人才队伍', completion2025: 85, completion2024: 79 },
-                { name: '建设', completion2025: 84, completion2024: 77 },
-                { name: '合作交流', completion2025: 85, completion2024: 77 },
-                { name: '成果转化与社会服务', completion2025: 84, completion2024: 76 },
-                { name: '党建思政', completion2025: 91, completion2024: 86 }
+                { name: '自评报告通过专家评审取得进校资格', completion2025: 98, completion2024: 88 },
+                { name: '省级教学成果奖特等奖(项)', completion2025: 79, completion2024: 69 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 90, completion2024: 83 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 92, completion2024: 85 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 88, completion2024: 80 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 80, completion2024: 72 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 91, completion2024: 83 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 93, completion2024: 85 },
+                { name: '国家自然科学基金项目（项)', completion2025: 94, completion2024: 86 },
+                { name: '科技部国际合作重点研发计划；四川省科技厅国际科技合作项目（项)', completion2025: 89, completion2024: 81 },
+                { name: '高水平学术专著（本)', completion2025: 82, completion2024: 74 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 95, completion2024: 87 },
+                { name: '授权发明专利数（项)', completion2025: 91, completion2024: 83 },
+                { name: '教育部科学技术奖、军队国防奖、中国专利奖以及其他部委科技成果奖/优秀成果奖（项)', completion2025: 88, completion2024: 80 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 90, completion2024: 82 },
+                { name: '社会力量奖（项）', completion2025: 79, completion2024: 71 },
+                { name: '新增部省级以上科研平台（个)', completion2025: 85, completion2024: 77 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 92, completion2024: 84 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 90, completion2024: 82 }
             ]},
             { name: '自动化学院', tasks: [
-                { name: '人才培养', completion2025: 93, completion2024: 85 },
-                { name: '科学研究', completion2025: 91, completion2024: 83 },
-                { name: '人才队伍', completion2025: 90, completion2024: 83 },
-                { name: '建设', completion2025: 89, completion2024: 81 },
-                { name: '合作交流', completion2025: 87, completion2024: 79 },
-                { name: '成果转化与社会服务', completion2025: 86, completion2024: 77 },
-                { name: '党建思政', completion2025: 94, completion2024: 89 }
+                { name: '专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]', completion2025: 93, completion2024: 85 },
+                { name: '省级教学成果奖特等奖(项)', completion2025: 82, completion2024: 72 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 91, completion2024: 84 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 94, completion2024: 87 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 89, completion2024: 82 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 82, completion2024: 74 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 93, completion2024: 85 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 95, completion2024: 87 },
+                { name: '国家自然科学基金项目（项)', completion2025: 94, completion2024: 86 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 96, completion2024: 88 },
+                { name: '授权发明专利数（项)', completion2025: 93, completion2024: 85 },
+                { name: '教育部科学技术奖、军队国防奖、中国专利奖以及其他部委科技成果奖/优秀成果奖（项)', completion2025: 90, completion2024: 82 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 92, completion2024: 84 },
+                { name: '新增部省级以上科研平台（个)', completion2025: 88, completion2024: 80 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 94, completion2024: 86 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 92, completion2024: 84 }
             ]},
             { name: '环境科学与工程学院', tasks: [
-                { name: '人才培养', completion2025: 88, completion2024: 82 },
-                { name: '科学研究', completion2025: 86, completion2024: 78 },
-                { name: '人才队伍', completion2025: 85, completion2024: 79 },
-                { name: '建设', completion2025: 85, completion2024: 78 },
-                { name: '合作交流', completion2025: 88, completion2024: 80 },
-                { name: '成果转化与社会服务', completion2025: 89, completion2024: 80 },
-                { name: '党建思政', completion2025: 92, completion2024: 87 }
+                { name: '专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]', completion2025: 88, completion2024: 82 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 87, completion2024: 80 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 90, completion2024: 83 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 85, completion2024: 78 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 78, completion2024: 70 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 90, completion2024: 82 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 87, completion2024: 79 },
+                { name: '国家自然科学基金项目（项)', completion2025: 89, completion2024: 81 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 91, completion2024: 83 },
+                { name: '授权发明专利数（项)', completion2025: 88, completion2024: 80 },
+                { name: '教育部科学技术奖、军队国防奖、中国专利奖以及其他部委科技成果奖/优秀成果奖（项)', completion2025: 86, completion2024: 78 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 88, completion2024: 80 },
+                { name: '新增部省级以上科研平台（个)', completion2025: 84, completion2024: 76 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 87, completion2024: 80 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 85, completion2024: 78 }
             ]}
         ];
         
         const humanityColleges = [
             { name: '文学院', tasks: [
-                { name: '人才培养', completion2025: 90, completion2024: 83 },
-                { name: '科学研究', completion2025: 88, completion2024: 80 },
-                { name: '人才队伍', completion2025: 89, completion2024: 82 },
-                { name: '建设', completion2025: 87, completion2024: 80 },
-                { name: '合作交流', completion2025: 86, completion2024: 79 },
-                { name: '成果转化与社会服务', completion2025: 85, completion2024: 78 },
-                { name: '党建思政', completion2025: 93, completion2024: 88 }
+                { name: '省级教学成果奖特等奖(项)', completion2025: 85, completion2024: 75 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 90, completion2024: 83 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 92, completion2024: 85 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 88, completion2024: 80 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 91, completion2024: 82 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 88, completion2024: 80 },
+                { name: '国家社科基金项目（项)', completion2025: 90, completion2024: 83 },
+                { name: '高水平学术专著（本)', completion2025: 87, completion2024: 80 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 92, completion2024: 85 },
+                { name: '教育部人文社科奖、中国文联文艺评论奖等（项)', completion2025: 86, completion2024: 78 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 89, completion2024: 82 },
+                { name: '社会力量奖（项）', completion2025: 85, completion2024: 78 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 93, completion2024: 86 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 90, completion2024: 83 }
             ]},
             { name: '法学院', tasks: [
-                { name: '人才培养', completion2025: 88, completion2024: 81 },
-                { name: '科学研究', completion2025: 87, completion2024: 79 },
-                { name: '人才队伍', completion2025: 86, completion2024: 80 },
-                { name: '建设', completion2025: 86, completion2024: 79 },
-                { name: '合作交流', completion2025: 85, completion2024: 78 },
-                { name: '成果转化与社会服务', completion2025: 88, completion2024: 80 },
-                { name: '党建思政', completion2025: 92, completion2024: 87 }
+                { name: '自评报告通过专家评审取得进校资格', completion2025: 98, completion2024: 88 },
+                { name: '省级教学成果奖特等奖(项)', completion2025: 82, completion2024: 72 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 88, completion2024: 81 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 91, completion2024: 84 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 86, completion2024: 79 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 89, completion2024: 81 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 87, completion2024: 79 },
+                { name: '国家社科基金项目（项)', completion2025: 88, completion2024: 80 },
+                { name: '高水平学术专著（本)', completion2025: 86, completion2024: 79 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 91, completion2024: 83 },
+                { name: '教育部人文社科奖、中国文联文艺评论奖等（项)', completion2025: 85, completion2024: 77 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 88, completion2024: 80 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 92, completion2024: 85 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 87, completion2024: 80 }
             ]},
             { name: '经济学院', tasks: [
-                { name: '人才培养', completion2025: 91, completion2024: 84 },
-                { name: '科学研究', completion2025: 90, completion2024: 82 },
-                { name: '人才队伍', completion2025: 90, completion2024: 83 },
-                { name: '建设', completion2025: 89, completion2024: 82 },
-                { name: '合作交流', completion2025: 88, completion2024: 80 },
-                { name: '成果转化与社会服务', completion2025: 87, completion2024: 79 },
-                { name: '党建思政', completion2025: 94, completion2024: 89 }
+                { name: '专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]', completion2025: 91, completion2024: 83 },
+                { name: '省级教学成果奖特等奖(项)', completion2025: 87, completion2024: 77 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 93, completion2024: 86 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 94, completion2024: 87 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 89, completion2024: 82 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 82, completion2024: 74 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 92, completion2024: 84 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 90, completion2024: 82 },
+                { name: '国家自然科学基金项目（项)', completion2025: 91, completion2024: 83 },
+                { name: '国家社科基金项目（项)', completion2025: 93, completion2024: 85 },
+                { name: '高水平学术专著（本)', completion2025: 89, completion2024: 82 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 94, completion2024: 86 },
+                { name: '教育部人文社科奖、中国文联文艺评论奖等（项)', completion2025: 88, completion2024: 80 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 90, completion2024: 83 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 94, completion2024: 87 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 92, completion2024: 84 }
             ]},
             { name: '管理学院', tasks: [
-                { name: '人才培养', completion2025: 92, completion2024: 85 },
-                { name: '科学研究', completion2025: 91, completion2024: 83 },
-                { name: '人才队伍', completion2025: 91, completion2024: 84 },
-                { name: '建设', completion2025: 90, completion2024: 83 },
-                { name: '合作交流', completion2025: 89, completion2024: 82 },
-                { name: '成果转化与社会服务', completion2025: 89, completion2024: 81 },
-                { name: '党建思政', completion2025: 95, completion2024: 90 }
+                { name: '专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]', completion2025: 92, completion2024: 84 },
+                { name: '省级教学成果奖特等奖(项)', completion2025: 88, completion2024: 78 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 94, completion2024: 87 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 95, completion2024: 88 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 90, completion2024: 83 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 83, completion2024: 75 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 93, completion2024: 85 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 91, completion2024: 84 },
+                { name: '国家自然科学基金项目（项)', completion2025: 92, completion2024: 85 },
+                { name: '国家社科基金项目（项)', completion2025: 94, completion2024: 86 },
+                { name: '高水平学术专著（本)', completion2025: 90, completion2024: 83 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 95, completion2024: 88 },
+                { name: '教育部人文社科奖、中国文联文艺评论奖等（项)', completion2025: 89, completion2024: 81 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 91, completion2024: 84 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 95, completion2024: 88 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 93, completion2024: 85 }
             ]},
             { name: '外语学院', tasks: [
-                { name: '人才培养', completion2025: 89, completion2024: 82 },
-                { name: '科学研究', completion2025: 85, completion2024: 78 },
-                { name: '人才队伍', completion2025: 87, completion2024: 80 },
-                { name: '建设', completion2025: 86, completion2024: 79 },
-                { name: '合作交流', completion2025: 90, completion2024: 83 },
-                { name: '成果转化与社会服务', completion2025: 87, completion2024: 80 },
-                { name: '党建思政', completion2025: 92, completion2024: 87 }
+                { name: '省级教学成果奖特等奖(项)', completion2025: 84, completion2024: 74 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 89, completion2024: 82 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 91, completion2024: 84 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 86, completion2024: 79 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 80, completion2024: 72 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 88, completion2024: 80 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 85, completion2024: 78 },
+                { name: '国家社科基金项目（项)', completion2025: 87, completion2024: 80 },
+                { name: '高水平学术专著（本)', completion2025: 84, completion2024: 77 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 89, completion2024: 82 },
+                { name: '教育部人文社科奖、中国文联文艺评论奖等（项)', completion2025: 83, completion2024: 76 },
+                { name: '社会力量奖（项）', completion2025: 88, completion2024: 81 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 92, completion2024: 85 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 87, completion2024: 80 }
             ]},
             { name: '历史学院', tasks: [
-                { name: '人才培养', completion2025: 87, completion2024: 80 },
-                { name: '科学研究', completion2025: 86, completion2024: 78 },
-                { name: '人才队伍', completion2025: 86, completion2024: 79 },
-                { name: '建设', completion2025: 85, completion2024: 78 },
-                { name: '合作交流', completion2025: 84, completion2024: 77 },
-                { name: '成果转化与社会服务', completion2025: 84, completion2024: 77 },
-                { name: '党建思政', completion2025: 91, completion2024: 86 }
+                { name: '省级教学成果奖特等奖(项)', completion2025: 82, completion2024: 72 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 87, completion2024: 80 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 90, completion2024: 83 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 84, completion2024: 77 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 86, completion2024: 78 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 83, completion2024: 76 },
+                { name: '国家社科基金项目（项)', completion2025: 85, completion2024: 78 },
+                { name: '高水平学术专著（本)', completion2025: 86, completion2024: 79 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 90, completion2024: 83 },
+                { name: '教育部人文社科奖、中国文联文艺评论奖等（项)', completion2025: 81, completion2024: 74 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 85, completion2024: 78 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 91, completion2024: 84 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 86, completion2024: 79 }
             ]},
             { name: '教育学院', tasks: [
-                { name: '人才培养', completion2025: 93, completion2024: 86 },
-                { name: '科学研究', completion2025: 88, completion2024: 80 },
-                { name: '人才队伍', completion2025: 89, completion2024: 82 },
-                { name: '建设', completion2025: 88, completion2024: 81 },
-                { name: '合作交流', completion2025: 87, completion2024: 80 },
-                { name: '成果转化与社会服务', completion2025: 90, completion2024: 83 },
-                { name: '党建思政', completion2025: 94, completion2024: 89 }
+                { name: '专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]', completion2025: 93, completion2024: 85 },
+                { name: '自评报告通过专家评审取得进校资格', completion2025: 97, completion2024: 87 },
+                { name: '省级教学成果奖特等奖(项)', completion2025: 89, completion2024: 79 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 95, completion2024: 88 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 96, completion2024: 89 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 91, completion2024: 84 },
+                { name: '通过率提升百分点（%）[四级；六级]', completion2025: 84, completion2024: 76 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 94, completion2024: 86 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 92, completion2024: 84 },
+                { name: '国家自然科学基金项目（项)', completion2025: 88, completion2024: 80 },
+                { name: '国家社科基金项目（项)', completion2025: 93, completion2024: 86 },
+                { name: '高水平学术专著（本)', completion2025: 90, completion2024: 83 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 95, completion2024: 88 },
+                { name: '教育部人文社科奖、中国文联文艺评论奖等（项)', completion2025: 90, completion2024: 82 },
+                { name: '省部级政府奖（一等奖：全部）', completion2025: 92, completion2024: 85 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 94, completion2024: 87 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 91, completion2024: 84 }
             ]},
             { name: '艺术学院', tasks: [
-                { name: '人才培养', completion2025: 90, completion2024: 83 },
-                { name: '科学研究', completion2025: 84, completion2024: 77 },
-                { name: '人才队伍', completion2025: 86, completion2024: 79 },
-                { name: '建设', completion2025: 85, completion2024: 78 },
-                { name: '合作交流', completion2025: 88, completion2024: 81 },
-                { name: '成果转化与社会服务', completion2025: 91, completion2024: 84 },
-                { name: '党建思政', completion2025: 92, completion2024: 87 }
+                { name: '省级教学成果奖特等奖(项)', completion2025: 86, completion2024: 76 },
+                { name: '升学率（%)[升硕；升博]', completion2025: 90, completion2024: 83 },
+                { name: '毕业生初次去向落实率（%）', completion2025: 92, completion2024: 85 },
+                { name: '第一志愿研究生上线人数占招生计划比（%）', completion2025: 87, completion2024: 80 },
+                { name: '学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]', completion2025: 93, completion2024: 85 },
+                { name: '科研年度经费（亿元)：立项/到账/军工到账', completion2025: 84, completion2024: 77 },
+                { name: '国家社科基金项目（项)', completion2025: 86, completion2024: 79 },
+                { name: '高水平学术专著（本)', completion2025: 83, completion2024: 76 },
+                { name: '高水平论文（篇）（理工科指T级以上，人文社科指D级以上）', completion2025: 88, completion2024: 81 },
+                { name: '教育部人文社科奖、中国文联文艺评论奖等（项)', completion2025: 87, completion2024: 80 },
+                { name: '社会力量奖（项）', completion2025: 91, completion2024: 84 },
+                { name: '国家级高层次人才（人)：A类(含柔性)/B类/C类', completion2025: 93, completion2024: 86 },
+                { name: '省部级高层次人才（人次，不含学带后备)', completion2025: 89, completion2024: 82 }
             ]}
         ];
         
+
+
         // 辅助函数：计算完成率
         function calculateCompletionRate(tasks) {
             const sum = tasks.reduce((acc, task) => acc + task.completion2025, 0);
@@ -463,6 +618,12 @@
             const sum2025 = tasks.reduce((acc, task) => acc + task.completion2025, 0);
             const sum2024 = tasks.reduce((acc, task) => acc + task.completion2024, 0);
             return Math.round(((sum2025 - sum2024) / (tasks.length * 100)) * 100);
+        }
+        
+        // 辅助函数：计算单个指标的进步率
+        function calculateSingleProgressRate(value2024, value2025) {
+            if (value2024 === 0) return 0;
+            return Math.round(((value2025 - value2024) / value2024) * 100);
         }
         
         // 辅助函数：获取进度条颜色
@@ -590,16 +751,16 @@
                             完成率: ${completionRate}% | 排名：${rank}/${total}
                         </div>
                     </div>
-                    <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                         ${college.tasks.map((task, taskIndex) => `
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="text-sm md:text-base">${task.name}</span>
-                                    <span class="text-sm font-semibold ${getProgressColor(task.completion2025)}">
+                            <div class="bg-white/5 rounded-lg p-3">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm truncate max-w-[70%] hover:whitespace-normal hover:text-wrap hover:bg-dark/70 p-1 rounded transition-all">${task.name}</span>
+                                    <span class="text-xs font-semibold ${getProgressColor(task.completion2025)}">
                                         ${task.completion2025}%
                                     </span>
                                 </div>
-                                <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-2 bg-white/10 rounded-full overflow-hidden">
                                     <div 
                                         class="h-full rounded-full progress-bar progress-bg"
                                         style="--progress-width: ${task.completion2025}%; animation-delay: ${0.2 + taskIndex * 0.1}s"
@@ -635,6 +796,9 @@
                 card.className = 'bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 animate-fadeIn';
                 card.style.animationDelay = `${0.1 * (collegeIndex % 6)}s`;
                 
+                // 控制指标数量在10个以内
+                const limitedTasks = college.tasks.slice(0, 10);
+                
                 card.innerHTML = `
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-semibold flex items-center">
@@ -645,26 +809,121 @@
                             综合进步率: <i class="fa fa-arrow-up mr-1"></i>${progressRate}% | 排名：${rank}/${total}
                         </div>
                     </div>
-                    <div class="space-y-4">
-                        ${college.tasks.map((task, taskIndex) => {
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        ${limitedTasks.map((task, taskIndex) => {
                             const progress = task.completion2025 - task.completion2024;
+                            // 获取具体数值，若没有则使用完成率作为示例值
+                            const value2024 = task.value2024 || (task.completion2024 * 1000);
+                            const value2025 = task.value2025 || (task.completion2025 * 1000);
+                            
+                            // 格式化数值，根据大小添加单位
+                            const formatValue = (value) => {
+                                if (value >= 1000000) {
+                                    return (value / 1000000).toFixed(2) + '亿';
+                                } else if (value >= 10000) {
+                                    return (value / 10000).toFixed(2) + '万';
+                                } else if (value >= 1000) {
+                                    return (value / 1000).toFixed(2) + '千';
+                                }
+                                return value.toFixed(0);
+                            };
+                            
+                            // 获取颜色类名，与任务完成情况中保持一致
+                            const color2024 = getProgressColor(task.completion2024);
+                            const color2025 = getProgressColor(task.completion2025);
+                            
+                            // 计算柱状图的最大数值，用于比例计算
+                            // 为了避免柱子过短，根据数值大小动态调整刻度范围
+                            const maxValue = Math.max(value2024, value2025, 100);
+                            
+                            // 根据数值大小动态调整缩放比例
+                            let scaledMaxValue;
+                            if (maxValue < 5) {
+                                // 对于非常小的数值，使用最大值的5倍作为刻度范围
+                                scaledMaxValue = maxValue * 5;
+                            } else if (maxValue < 20) {
+                                // 对于小数值，使用最大值的3倍作为刻度范围
+                                scaledMaxValue = maxValue * 3;
+                            } else {
+                                // 对于较大数值，使用最大值的1.5倍作为刻度范围
+                                scaledMaxValue = maxValue * 1.5;
+                            }
+                            
+                            // 生成唯一的canvas ID
+                            const canvasId = `bar-chart-${collegeIndex}-${taskIndex}`;
+                            
+                            // 将图表初始化代码添加到页面中
+                            setTimeout(() => {
+                                const ctx = document.getElementById(canvasId).getContext('2d');
+                                new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: ['2024', '2025'],
+                                        datasets: [{
+                                            data: [value2024, value2025],
+                                            backgroundColor: [
+                                                // 2024年数据都用蓝色
+                                                '#165DFF',
+                                                // 2025年数据根据与24年的对比使用不同颜色
+                                                value2025 > value2024 ? '#00B42A' : // 比24年高用绿色
+                                                value2025 < value2024 ? '#FF7D00' : // 比24年低用橙色
+                                                '#165DFF' // 和24年一样用蓝色
+                                            ],
+                                            borderColor: 'transparent',
+                                            borderWidth: 1,
+                                            borderRadius: 3,
+                                            barThickness: 15
+                                        }]
+                                    },
+                                    options: {
+                                        indexAxis: 'y', // 设置为横向条形图
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        plugins: {
+                                            legend: {
+                                                display: false
+                                            },
+                                            tooltip: {
+                                                callbacks: {
+                                                    label: function(context) {
+                                                        return `${context.label}: ${formatValue(context.raw)}`;
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        scales: {
+                                            x: {
+                                                beginAtZero: true,
+                                                grid: {
+                                                    color: 'rgba(255, 255, 255, 0.1)'
+                                                },
+                                                ticks: {
+                                                    color: 'rgba(255, 255, 255, 0.7)',
+                                                    fontSize: 10
+                                                }
+                                            },
+                                            y: {
+                                                grid: {
+                                                    display: false
+                                                },
+                                                ticks: {
+                                                    color: 'rgba(255, 255, 255, 0.7)',
+                                                    fontSize: 10
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            }, 100);
+                            
                             return `
-                                <div>
-                                    <div class="flex justify-between mb-2">
-                                        <span class="text-sm md:text-base">${task.name}</span>
-                                        <div class="flex items-center">
-                                            <span class="text-xs text-info mr-3">2024: ${task.completion2024}%</span>
-                                            <span class="text-xs text-info font-semibold">2025: ${task.completion2025}%</span>
-                                            <span class="ml-3 px-2 py-1 rounded-full text-xs font-semibold ${getProgressTrendColor(progress)}">
-                                                <i class="fa fa-arrow-up mr-1"></i>${progress}%
-                                            </span>
-                                        </div>
+                                <div class="bg-white/5 rounded-lg p-3">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-sm truncate max-w-[60%] hover:whitespace-normal hover:text-wrap hover:bg-dark/70 p-1 rounded transition-all">${task.name}</span>
+                                        <span class="text-xs font-bold text-primary">${calculateSingleProgressRate(value2024, value2025)}%</span>
                                     </div>
-                                    <div class="h-4 bg-white/10 rounded-full overflow-hidden">
-                                        <div 
-                                            class="h-full rounded-full progress-bar progress-gradient"
-                                            style="--progress-width: ${(Math.abs(progress) / 15) * 100}%; width: ${(Math.abs(progress) / 15) * 100}%; animation-delay: ${0.2 + taskIndex * 0.1}s"
-                                        ></div>
+                                    <div class="h-24 bg-white/5 rounded-md p-1">
+                                        <canvas id="${canvasId}"></canvas>
                                     </div>
                                 </div>
                             `;
@@ -802,7 +1061,7 @@
                             categoryPercentage: 0.7
                         },
                         {
-                            label: '2024年',
+                            label: '2024年完成率',
                             type: 'line',
                             data: completion2024,
                             borderColor: '#86909C',
@@ -813,7 +1072,7 @@
                             yAxisID: 'y1'
                         },
                         {
-                            label: '2025年',
+                            label: '2025年完成率',
                             type: 'line',
                             data: completion2025,
                             borderColor: '#165DFF',
@@ -1065,6 +1324,37 @@
             window.addEventListener('resize', () => {
                 initCompletionChart(document.getElementById('science-content').classList.contains('hidden') ? humanityColleges : scienceColleges);
                 initProgressChart(document.getElementById('science-compare-content').classList.contains('hidden') ? humanityColleges : scienceColleges);
+            });
+        });
+        
+    </script>
+    
+    <!-- 回到顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary/80 hover:bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 invisible z-50">
+        <i class="fa fa-chevron-up"></i>
+    </button>
+    
+    <script>
+        // 回到顶部按钮功能
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        // 监听滚动事件
+        window.addEventListener('scroll', () => {
+            // 当页面滚动超过500px时显示按钮
+            if (window.scrollY > 500) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        // 点击按钮回到顶部
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
     </script>
