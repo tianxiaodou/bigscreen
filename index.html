@@ -405,10 +405,10 @@
                 card.className = 'bg-dark/50 rounded-xl border border-white/10 p-5 card-glass card-hover transition-all duration-500 animate-fadeIn';
                 card.style.animationDelay = `${0.1 * (collegeIndex % 6)}s`;
                 
-                // 控制指标数量在10个以内
-                const limitedTasks = college.tasks.slice(0, 10);
-                // 对比数据使用comparisonTasks
-                const limitedComparisonTasks = college.comparisonTasks.slice(0, 10);
+                // 使用所有任务指标
+                const limitedTasks = college.tasks;
+                // 对比数据使用所有comparisonTasks
+                const limitedComparisonTasks = college.comparisonTasks;
                 
                 card.innerHTML = `
                     <div class="flex justify-between items-center mb-6">
@@ -460,7 +460,7 @@
                                     综合进步率: <i class="fa fa-arrow-up mr-1"></i>${progressRate}%
                                 </div>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3">
+                            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-3">
                                 ${limitedComparisonTasks.map((task, taskIndex) => {
                                     // 获取具体数值，若没有则使用完成率作为示例值
                                     const value2024 = task.value2024 ?? (task.completion2024 * 1000 ?? 0);
