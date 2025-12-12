@@ -1817,7 +1817,7 @@ const scienceColleges = [
     },
     {
         "name": "航空航天学院",
-        "shortName": "航航空航天院",
+        "shortName": "航空航天学院",
         "tasks": [
             {
                 "name": "升学率（%)[升硕；升博]",
@@ -3390,3 +3390,4 @@ const collegeCategories = {
 
 // 任务指标模板 - 从Excel文件中获取的任务指标名称
 const taskTemplate = [];
+
