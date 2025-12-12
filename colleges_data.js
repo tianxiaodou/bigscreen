@@ -327,6 +327,240 @@ const scienceColleges = [
         ]
     },
     {
+        "name": "环境与资源学院",
+        "shortName": "环资学院",
+        "tasks": [
+            {
+                "name": "专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]",
+                "completion2025": 0.0
+            },
+            {
+                "name": "自评报告通过专家评审取得进校资格",
+                "completion2025": 0.0
+            },
+            {
+                "name": "升学率（%)[升硕；升博]",
+                "completion2025": 0.0
+            },
+            {
+                "name": "毕业生初次去向落实率（%）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "第一志愿研究生上线人数占招生计划比（%）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "专业录取位次",
+                "completion2025": 0.0
+            },
+            {
+                "name": "通过率提升百分点（%）[四级；六级]",
+                "completion2025": 0.0
+            },
+            {
+                "name": "学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]",
+                "completion2025": 0.0
+            },
+            {
+                "name": "科研年度经费（亿元)：立项/到账/军工到账",
+                "completion2025": 0.0
+            },
+            {
+                "name": "国家重大（重点)项目（项)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "国家自然科学基金项目（项)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "高水平学术专著（本)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "高水平论文（篇）（理工科指T级以上，人文社科指D级以上）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "授权发明专利数（项)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "国家自然科学奖、技术发明奖以及科技进步奖（项)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "教育部科学技术奖、军队国防奖、中国专利奖以及其他部委科技成果奖/优秀成果奖（项)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "省部级政府奖（一等奖：全部）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "社会力量奖（项）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "新增部省级以上科研平台（个)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "招聘博士辅导员/转岗辅导员（人）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "国家级高层次人才（人)：A类(含柔性)/B类/C类",
+                "completion2025": 0.0
+            },
+            {
+                "name": "省部级高层次人才（人次，不含学带后备)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "海外优青获批/申报",
+                "completion2025": 0.0
+            },
+            {
+                "name": "引进拔尖人才/优秀人才/学术骨干",
+                "completion2025": 0.0
+            },
+            {
+                "name": "优秀博士后人才（人）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "来华留学生（人）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "省级以上与企业共建技术创新中心、工程中心、产教融合新型研发机构、地方产业研究院（个)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "科技成果转化到校资金（万元)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "科技成果转化合同金额（万元）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "科技成果转化经费超过500万项目（项）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "非学历继续教育办学经费规模（万元)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "学校基金会募集资金（含各类资产）（万元）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "全国“样板党支部”",
+                "completion2025": 0.0
+            },
+            {
+                "name": "全国百名研究生党员标兵",
+                "completion2025": 0.0
+            }
+        ],
+        "comparisonTasks": [
+            {
+                "name": "4.专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "12.升学率（%)[升硕；升博]",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "13.学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖](项)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "14.科研年度经费（亿元)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "16.国家自然科学基金项目（项)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "19.高水平学术专著（本)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "21.授权发明专利数（项)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "30.招聘博士辅导员/转岗辅导员（人）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "33.省部级高层次人才（人次，不含学带后备)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "34.海外优青获批/申报",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "35.引进拔尖人才/优秀人才/学术骨干",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "36.来华留学生（人）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "39.科技成果转化到校资金（万元)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "40.非学历继续教育办学经费规模（万元)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "41.学校基金会募集资金（含各类资产）（万元）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            }
+        ]
+    },
+    {
         "name": "信息与控制工程学院",
         "shortName": "信控学院",
         "tasks": [
@@ -565,238 +799,143 @@ const scienceColleges = [
         ]
     },
     {
-        "name": "环境与资源学院",
-        "shortName": "环资学院",
+        "name": "生命科学与农林学院",
+        "shortName": "生命学院",
         "tasks": [
             {
-                "name": "专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]",
-                "completion2025": 0.0
-            },
-            {
-                "name": "自评报告通过专家评审取得进校资格",
-                "completion2025": 0.0
+                "name": "省级教学成果奖特等奖(项)",
+                "completion2025": 0
             },
             {
                 "name": "升学率（%)[升硕；升博]",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "毕业生初次去向落实率（%）",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "第一志愿研究生上线人数占招生计划比（%）",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "专业录取位次",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "通过率提升百分点（%）[四级；六级]",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "科研年度经费（亿元)：立项/到账/军工到账",
-                "completion2025": 0.0
-            },
-            {
-                "name": "国家重大（重点)项目（项)",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "国家自然科学基金项目（项)",
-                "completion2025": 0.0
+                "completion2025": 0
+            },
+            {
+                "name": "科技部国际合作重点研发计划；四川省科技厅国际科技合作项目（项)",
+                "completion2025": 0
             },
             {
                 "name": "高水平学术专著（本)",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "高水平论文（篇）（理工科指T级以上，人文社科指D级以上）",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "授权发明专利数（项)",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "国家自然科学奖、技术发明奖以及科技进步奖（项)",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "教育部科学技术奖、军队国防奖、中国专利奖以及其他部委科技成果奖/优秀成果奖（项)",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "省部级政府奖（一等奖：全部）",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "社会力量奖（项）",
-                "completion2025": 0.0
+                "completion2025": 0
+            },
+            {
+                "name": "新增国家级科研平台（个)",
+                "completion2025": 0
             },
             {
                 "name": "新增部省级以上科研平台（个)",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "招聘博士辅导员/转岗辅导员（人）",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
-                "name": "国家级高层次人才（人)：A类(含柔性)/B类/C类",
-                "completion2025": 0.0
+                "name": "国家级高层次人才（人) ：A类(含柔性)/B类/C类",
+                "completion2025": 0
             },
             {
                 "name": "省部级高层次人才（人次，不含学带后备)",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "海外优青获批/申报",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "引进拔尖人才/优秀人才/学术骨干",
-                "completion2025": 0.0
-            },
-            {
-                "name": "优秀博士后人才（人）",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "来华留学生（人）",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "省级以上与企业共建技术创新中心、工程中心、产教融合新型研发机构、地方产业研究院（个)",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "科技成果转化到校资金（万元)",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "科技成果转化合同金额（万元）",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
-                "name": "科技成果转化经费超过500万项目（项）",
-                "completion2025": 0.0
+                "name": "科技成果转化经费超过100万项目（项）",
+                "completion2025": 0
             },
             {
                 "name": "非学历继续教育办学经费规模（万元)",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
                 "name": "学校基金会募集资金（含各类资产）（万元）",
-                "completion2025": 0.0
+                "completion2025": 0
             },
             {
-                "name": "全国“样板党支部”",
-                "completion2025": 0.0
+                "name": "全国\"样板党支部\"",
+                "completion2025": 0
             },
             {
-                "name": "全国百名研究生党员标兵",
-                "completion2025": 0.0
+                "name": "全国高校\"双带头人\"教师党支部书记工作室",
+                "completion2025": 0
             }
         ],
-        "comparisonTasks": [
-            {
-                "name": "4.专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "12.升学率（%)[升硕；升博]",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "13.学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖](项)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "14.科研年度经费（亿元)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "16.国家自然科学基金项目（项)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "19.高水平学术专著（本)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "21.授权发明专利数（项)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "30.招聘博士辅导员/转岗辅导员（人）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "33.省部级高层次人才（人次，不含学带后备)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "34.海外优青获批/申报",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "35.引进拔尖人才/优秀人才/学术骨干",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "36.来华留学生（人）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "39.科技成果转化到校资金（万元)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "40.非学历继续教育办学经费规模（万元)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "41.学校基金会募集资金（含各类资产）（万元）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            }
-        ]
+        "comparisonTasks": []
     },
     {
         "name": "制造科学与工程学院",
@@ -1011,9 +1150,17 @@ const scienceColleges = [
         ]
     },
     {
-        "name": "生命科学与农林学院",
-        "shortName": "生命学院",
+        "name": "国防科技学院核科学技术学院",
+        "shortName": "国防学院",
         "tasks": [
+            {
+                "name": "专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]",
+                "completion2025": 0
+            },
+            {
+                "name": "自评报告通过专家评审取得进校资格",
+                "completion2025": 0
+            },
             {
                 "name": "省级教学成果奖特等奖(项)",
                 "completion2025": 0
@@ -1043,15 +1190,15 @@ const scienceColleges = [
                 "completion2025": 0
             },
             {
-                "name": "科研年度经费（亿元)：立项/到账/军工到账",
+                "name": "科研年度经费（亿元)：",
+                "completion2025": 0
+            },
+            {
+                "name": "立项/到账/军工到账",
                 "completion2025": 0
             },
             {
                 "name": "国家自然科学基金项目（项)",
-                "completion2025": 0
-            },
-            {
-                "name": "科技部国际合作重点研发计划；四川省科技厅国际科技合作项目（项)",
                 "completion2025": 0
             },
             {
@@ -1067,10 +1214,6 @@ const scienceColleges = [
                 "completion2025": 0
             },
             {
-                "name": "国家自然科学奖、技术发明奖以及科技进步奖（项)",
-                "completion2025": 0
-            },
-            {
                 "name": "教育部科学技术奖、军队国防奖、中国专利奖以及其他部委科技成果奖/优秀成果奖（项)",
                 "completion2025": 0
             },
@@ -1083,11 +1226,7 @@ const scienceColleges = [
                 "completion2025": 0
             },
             {
-                "name": "新增国家级科研平台（个)",
-                "completion2025": 0
-            },
-            {
-                "name": "新增部省级以上科研平台（个)",
+                "name": "新增部省级以上科研平台（个）",
                 "completion2025": 0
             },
             {
@@ -1095,7 +1234,7 @@ const scienceColleges = [
                 "completion2025": 0
             },
             {
-                "name": "国家级高层次人才（人) ：A类(含柔性)/B类/C类",
+                "name": "国家级高层次人才（人)：A类(含柔性)/B类/C类",
                 "completion2025": 0
             },
             {
@@ -1115,19 +1254,11 @@ const scienceColleges = [
                 "completion2025": 0
             },
             {
-                "name": "省级以上与企业共建技术创新中心、工程中心、产教融合新型研发机构、地方产业研究院（个)",
-                "completion2025": 0
-            },
-            {
                 "name": "科技成果转化到校资金（万元)",
                 "completion2025": 0
             },
             {
                 "name": "科技成果转化合同金额（万元）",
-                "completion2025": 0
-            },
-            {
-                "name": "科技成果转化经费超过100万项目（项）",
                 "completion2025": 0
             },
             {
@@ -1139,7 +1270,7 @@ const scienceColleges = [
                 "completion2025": 0
             },
             {
-                "name": "全国\"样板党支部\"",
+                "name": "全国党建工作\"标杆院系\"",
                 "completion2025": 0
             },
             {
@@ -1148,190 +1279,6 @@ const scienceColleges = [
             }
         ],
         "comparisonTasks": []
-    },
-    {
-        "name": "计算机科学与技术学院",
-        "shortName": "计算机学院",
-        "tasks": [
-            {
-                "name": "专业认证数（个）[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业）]",
-                "completion2025": 0.0
-            },
-            {
-                "name": "省级产教融合示范项目中期检查、结题达优秀",
-                "completion2025": 0.0
-            },
-            {
-                "name": "升学率（%）[升硕；升博]",
-                "completion2025": 0.0
-            },
-            {
-                "name": "毕业生初次去向落实率（%）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "第一志愿研究生上线人数占招生计划比（%）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "专业录取位次",
-                "completion2025": 0.0
-            },
-            {
-                "name": "通过率提升百分点（%）[四级；六级]",
-                "completion2025": 0.0
-            },
-            {
-                "name": "学生国内外大赛获奖数（项）[A+省三等及以上；A、B、C国奖]（项）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "科研年度经费（亿元）：立项/到账/军工到账",
-                "completion2025": 0.0
-            },
-            {
-                "name": "国家自然科学基金项目（项）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "高水平学术专著（本)",
-                "completion2025": 0.0
-            },
-            {
-                "name": "高水平论文（篇）（理工科指T级以上，人文社科指D级以上）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "授权发明专利数（项）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "新增部省级以上科研平台（个)",
-                "completion2025": 0.0
-            },
-            {
-                "name": "计算机学院教育部重点实验室（B类）建设",
-                "completion2025": 0.0
-            },
-            {
-                "name": "省部级政府奖（一等奖：全部）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "社会力量奖（项）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "招聘博士辅导员/转岗辅导员（人）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "国家级高层次人才： A类(含柔性)/B类/C类",
-                "completion2025": 0.0
-            },
-            {
-                "name": "省部级高层次人才（人次，不含学带后备）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "引进拔尖人才/优秀人才/学术骨干",
-                "completion2025": 0.0
-            },
-            {
-                "name": "来华留学生（人）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "科技成果转化到校资金（万元）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "科技成果转化合同金额（万元）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "非学历继续教育办学经费规模（万元）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "学校基金会募集资金（含各类资产）（万元）",
-                "completion2025": 0.0
-            }
-        ],
-        "comparisonTasks": [
-            {
-                "name": "4.专业认证数（个）[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业）]",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "12.升学率（%）[升硕；升博]",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "13.学生国内外大赛获奖数（项）[A+省三等及以上；A、B、C国奖]（项）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "14.科研年度经费（亿元）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "16.国家自然科学基金项目（项）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "21.授权发明专利数（项）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "33.省部级高层次人才（人次，不含学带后备）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "35.引进拔尖人才/优秀人才/学术骨干",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "36.来华留学生（人）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "39.科技成果转化到校资金（万元）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "40.非学历继续教育办学经费规模（万元）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "41.学校基金会募集资金（含各类资产）（万元）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            }
-        ]
     },
     {
         "name": "土木工程与建筑学院",
@@ -1520,6 +1467,191 @@ const scienceColleges = [
         ]
     },
     {
+        "name": "计算机科学与技术学院",
+        "shortName": "计算机学院",
+        "tasks": [
+            {
+                "name": "专业认证数（个）[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业）]",
+                "completion2025": 0.0
+            },
+            {
+                "name": "省级产教融合示范项目中期检查、结题达优秀",
+                "completion2025": 0.0
+            },
+            {
+                "name": "升学率（%）[升硕；升博]",
+                "completion2025": 0.0
+            },
+            {
+                "name": "毕业生初次去向落实率（%）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "第一志愿研究生上线人数占招生计划比（%）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "专业录取位次",
+                "completion2025": 0.0
+            },
+            {
+                "name": "通过率提升百分点（%）[四级；六级]",
+                "completion2025": 0.0
+            },
+            {
+                "name": "学生国内外大赛获奖数（项）[A+省三等及以上；A、B、C国奖]（项）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "科研年度经费（亿元）：立项/到账/军工到账",
+                "completion2025": 0.0
+            },
+            {
+                "name": "国家自然科学基金项目（项）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "高水平学术专著（本)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "高水平论文（篇）（理工科指T级以上，人文社科指D级以上）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "授权发明专利数（项）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "新增部省级以上科研平台（个)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "计算机学院教育部重点实验室（B类）建设",
+                "completion2025": 0.0
+            },
+            {
+                "name": "省部级政府奖（一等奖：全部）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "社会力量奖（项）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "招聘博士辅导员/转岗辅导员（人）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "国家级高层次人才： A类(含柔性)/B类/C类",
+                "completion2025": 0.0
+            },
+            {
+                "name": "省部级高层次人才（人次，不含学带后备）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "引进拔尖人才/优秀人才/学术骨干",
+                "completion2025": 0.0
+            },
+            {
+                "name": "来华留学生（人）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "科技成果转化到校资金（万元）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "科技成果转化合同金额（万元）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "非学历继续教育办学经费规模（万元）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "学校基金会募集资金（含各类资产）（万元）",
+                "completion2025": 0.0
+            }
+        ],
+        "comparisonTasks": [
+            {
+                "name": "4.专业认证数（个）[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业）]",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "12.升学率（%）[升硕；升博]",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "13.学生国内外大赛获奖数（项）[A+省三等及以上；A、B、C国奖]（项）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "14.科研年度经费（亿元）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "16.国家自然科学基金项目（项）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "21.授权发明专利数（项）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "33.省部级高层次人才（人次，不含学带后备）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "35.引进拔尖人才/优秀人才/学术骨干",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "36.来华留学生（人）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "39.科技成果转化到校资金（万元）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "40.非学历继续教育办学经费规模（万元）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "41.学校基金会募集资金（含各类资产）（万元）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            }
+        ]
+    },
+
+    {
         "name": "数理学院",
         "shortName": "数理学院",
         "tasks": [
@@ -1684,21 +1816,9 @@ const scienceColleges = [
         ]
     },
     {
-        "name": "国防科技学院核科学技术学院",
-        "shortName": "国防学院",
+        "name": "航空航天学院",
+        "shortName": "航航空航天院",
         "tasks": [
-            {
-                "name": "专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]",
-                "completion2025": 0
-            },
-            {
-                "name": "自评报告通过专家评审取得进校资格",
-                "completion2025": 0
-            },
-            {
-                "name": "省级教学成果奖特等奖(项)",
-                "completion2025": 0
-            },
             {
                 "name": "升学率（%)[升硕；升博]",
                 "completion2025": 0
@@ -1724,19 +1844,11 @@ const scienceColleges = [
                 "completion2025": 0
             },
             {
-                "name": "科研年度经费（亿元)：",
-                "completion2025": 0
-            },
-            {
-                "name": "立项/到账/军工到账",
+                "name": "科研年度经费（亿元)：立项/到账/军工到账",
                 "completion2025": 0
             },
             {
                 "name": "国家自然科学基金项目（项)",
-                "completion2025": 0
-            },
-            {
-                "name": "高水平学术专著（本)",
                 "completion2025": 0
             },
             {
@@ -1748,43 +1860,11 @@ const scienceColleges = [
                 "completion2025": 0
             },
             {
-                "name": "教育部科学技术奖、军队国防奖、中国专利奖以及其他部委科技成果奖/优秀成果奖（项)",
-                "completion2025": 0
-            },
-            {
-                "name": "省部级政府奖（一等奖：全部）",
-                "completion2025": 0
-            },
-            {
                 "name": "社会力量奖（项）",
                 "completion2025": 0
             },
             {
-                "name": "新增部省级以上科研平台（个）",
-                "completion2025": 0
-            },
-            {
-                "name": "招聘博士辅导员/转岗辅导员（人）",
-                "completion2025": 0
-            },
-            {
-                "name": "国家级高层次人才（人)：A类(含柔性)/B类/C类",
-                "completion2025": 0
-            },
-            {
-                "name": "省部级高层次人才（人次，不含学带后备)",
-                "completion2025": 0
-            },
-            {
-                "name": "海外优青获批/申报",
-                "completion2025": 0
-            },
-            {
                 "name": "引进拔尖人才/优秀人才/学术骨干",
-                "completion2025": 0
-            },
-            {
-                "name": "来华留学生（人）",
                 "completion2025": 0
             },
             {
@@ -1797,18 +1877,6 @@ const scienceColleges = [
             },
             {
                 "name": "非学历继续教育办学经费规模（万元)",
-                "completion2025": 0
-            },
-            {
-                "name": "学校基金会募集资金（含各类资产）（万元）",
-                "completion2025": 0
-            },
-            {
-                "name": "全国党建工作\"标杆院系\"",
-                "completion2025": 0
-            },
-            {
-                "name": "全国高校\"双带头人\"教师党支部书记工作室",
                 "completion2025": 0
             }
         ],
@@ -1884,78 +1952,160 @@ const scienceColleges = [
             }
         ],
         "comparisonTasks": []
-    },
-    {
-        "name": "航空航天学院",
-        "shortName": "航航空航天院",
-        "tasks": [
-            {
-                "name": "升学率（%)[升硕；升博]",
-                "completion2025": 0
-            },
-            {
-                "name": "毕业生初次去向落实率（%）",
-                "completion2025": 0
-            },
-            {
-                "name": "第一志愿研究生上线人数占招生计划比（%）",
-                "completion2025": 0
-            },
-            {
-                "name": "专业录取位次",
-                "completion2025": 0
-            },
-            {
-                "name": "通过率提升百分点（%）[四级；六级]",
-                "completion2025": 0
-            },
-            {
-                "name": "学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]",
-                "completion2025": 0
-            },
-            {
-                "name": "科研年度经费（亿元)：立项/到账/军工到账",
-                "completion2025": 0
-            },
-            {
-                "name": "国家自然科学基金项目（项)",
-                "completion2025": 0
-            },
-            {
-                "name": "高水平论文（篇）（理工科指T级以上，人文社科指D级以上）",
-                "completion2025": 0
-            },
-            {
-                "name": "授权发明专利数（项)",
-                "completion2025": 0
-            },
-            {
-                "name": "社会力量奖（项）",
-                "completion2025": 0
-            },
-            {
-                "name": "引进拔尖人才/优秀人才/学术骨干",
-                "completion2025": 0
-            },
-            {
-                "name": "科技成果转化到校资金（万元)",
-                "completion2025": 0
-            },
-            {
-                "name": "科技成果转化合同金额（万元）",
-                "completion2025": 0
-            },
-            {
-                "name": "非学历继续教育办学经费规模（万元)",
-                "completion2025": 0
-            }
-        ],
-        "comparisonTasks": []
     }
+
 ];
 
 // 2. 人文社科类及其他学院
 const humanityColleges = [
+    {
+        "name": "马克思主义学院",
+        "shortName": "马克思主义学院",
+        "tasks": [
+            {
+                "name": "专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]",
+                "completion2025": 0.0
+            },
+            {
+                "name": "省级教学成果奖一等奖(项)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "升学率（%)[升硕；升博]",
+                "completion2025": 0.0
+            },
+            {
+                "name": "毕业生初次去向落实率（%）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "第一志愿研究生上线人数占招生计划比（%）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "专业录取位次",
+                "completion2025": 0.0
+            },
+            {
+                "name": "通过率提升百分点（%）[四级；六级]",
+                "completion2025": 0.0
+            },
+            {
+                "name": "学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]",
+                "completion2025": 0.0
+            },
+            {
+                "name": "科研年度经费（亿元)：",
+                "completion2025": 0.0
+            },
+            {
+                "name": "立项/到账/军工到账",
+                "completion2025": 0.0
+            },
+            {
+                "name": "国家社会科学基金项目（项)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "高水平学术专著（本)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "高水平论文（篇）（理工科指T级以上，人文社科指D级以上）",
+                "completion2025": 0.0
+            },
+            {
+                "name": "高水平智库成果（项)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "省级哲学社会科学优秀成果获奖（项)[一等奖；全部]",
+                "completion2025": 0.0
+            },
+            {
+                "name": "建成四川省哲学社会科学重点研究基地（个)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "省部级高层次人才（人次，不含学带后备)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "引进拔尖人才/优秀人才/学术骨干",
+                "completion2025": 0.0
+            },
+            {
+                "name": "非学历继续教育办学经费规模（万元)",
+                "completion2025": 0.0
+            },
+            {
+                "name": "学校基金会募集资金（含各类资产）（万元）",
+                "completion2025": 0.0
+            }
+        ],
+        "comparisonTasks": [
+            {
+                "name": "4.专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "12.升学率（%)[升硕；升博]",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "13.学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖](项)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "14.科研年度经费（亿元)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "16.国家社会科学基金项目（项)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "19.高水平学术专著（本)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "20.高水平智库成果（项)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "35.引进拔尖人才/优秀人才/学术骨干",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "40.非学历继续教育办学经费规模（万元)",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            },
+            {
+                "name": "41.学校基金会募集资金（含各类资产）（万元）",
+                "value2024": 0.0,
+                "value2025": 0.0,
+                "progressRate": 0
+            }
+        ]
+    },
     {
         "name": "经济管理学院",
         "shortName": "经管学院",
@@ -2422,154 +2572,7 @@ const humanityColleges = [
             }
         ]
     },
-    {
-        "name": "马克思主义学院",
-        "shortName": "马克思主义学院",
-        "tasks": [
-            {
-                "name": "专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]",
-                "completion2025": 0.0
-            },
-            {
-                "name": "省级教学成果奖一等奖(项)",
-                "completion2025": 0.0
-            },
-            {
-                "name": "升学率（%)[升硕；升博]",
-                "completion2025": 0.0
-            },
-            {
-                "name": "毕业生初次去向落实率（%）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "第一志愿研究生上线人数占招生计划比（%）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "专业录取位次",
-                "completion2025": 0.0
-            },
-            {
-                "name": "通过率提升百分点（%）[四级；六级]",
-                "completion2025": 0.0
-            },
-            {
-                "name": "学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖]",
-                "completion2025": 0.0
-            },
-            {
-                "name": "科研年度经费（亿元)：",
-                "completion2025": 0.0
-            },
-            {
-                "name": "立项/到账/军工到账",
-                "completion2025": 0.0
-            },
-            {
-                "name": "国家社会科学基金项目（项)",
-                "completion2025": 0.0
-            },
-            {
-                "name": "高水平学术专著（本)",
-                "completion2025": 0.0
-            },
-            {
-                "name": "高水平论文（篇）（理工科指T级以上，人文社科指D级以上）",
-                "completion2025": 0.0
-            },
-            {
-                "name": "高水平智库成果（项)",
-                "completion2025": 0.0
-            },
-            {
-                "name": "省级哲学社会科学优秀成果获奖（项)[一等奖；全部]",
-                "completion2025": 0.0
-            },
-            {
-                "name": "建成四川省哲学社会科学重点研究基地（个)",
-                "completion2025": 0.0
-            },
-            {
-                "name": "省部级高层次人才（人次，不含学带后备)",
-                "completion2025": 0.0
-            },
-            {
-                "name": "引进拔尖人才/优秀人才/学术骨干",
-                "completion2025": 0.0
-            },
-            {
-                "name": "非学历继续教育办学经费规模（万元)",
-                "completion2025": 0.0
-            },
-            {
-                "name": "学校基金会募集资金（含各类资产）（万元）",
-                "completion2025": 0.0
-            }
-        ],
-        "comparisonTasks": [
-            {
-                "name": "4.专业认证数（个)[工程及第三级；行业、第二级及校内认证（限国家未启动的非工科类专业)]",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "12.升学率（%)[升硕；升博]",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "13.学生国内外大赛获奖数（项)[A+省三等及以上；A、B、C国奖](项)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "14.科研年度经费（亿元)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "16.国家社会科学基金项目（项)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "19.高水平学术专著（本)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "20.高水平智库成果（项)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "35.引进拔尖人才/优秀人才/学术骨干",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "40.非学历继续教育办学经费规模（万元)",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            },
-            {
-                "name": "41.学校基金会募集资金（含各类资产）（万元）",
-                "value2024": 0.0,
-                "value2025": 0.0,
-                "progressRate": 0
-            }
-        ]
-    },
+
     {
         "name": "法学院",
         "shortName": "法学院",
