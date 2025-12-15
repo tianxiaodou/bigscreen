@@ -176,7 +176,7 @@
                 <div class="h-8 w-1 bg-primary rounded-full"></div>
                 <h2 class="text-[clamp(1rem,1.5vw,1.6rem)] font-bold">
                     <i class="fa fa-tasks mr-2 text-primary"></i>
-                    学院任务完成情况与对比
+                    学院任务完成情况
                 </h2>
             </div>
             
@@ -220,13 +220,13 @@
                 <div class="h-8 w-1 bg-secondary rounded-full"></div>
                 <h2 class="text-[clamp(1rem,1.5vw,1.6rem)] font-bold">
                     <i class="fa fa-chart-line mr-2 text-secondary"></i>
-                    综合分析与总结
+                    综合分析
                 </h2>
             </div>
             
             <!-- 总结内容 -->
             <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
-                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500">
+                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 lg:col-span-2">
                     <h3 class="text-xl font-semibold mb-4 flex items-center">
                         <i class="fa fa-trophy text-warning mr-2"></i>
                         完成率排名
@@ -236,58 +236,20 @@
                     </div>
                 </div>
                 
-                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 lg:col-span-2">
+                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 lg:col-span-3">
                     <h3 class="text-xl font-semibold mb-4 flex items-center">
                         <i class="fa fa-pie-chart text-secondary mr-2"></i>
                         各学院完成率情况
                     </h3>
-                    <div class="h-96 mt-8">
+                    <div class="h-[520px] mt-8" style="height: 520px;">
                         <canvas id="completion-chart"></canvas>
                     </div>
                 </div>
                 
-                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 lg:col-span-2">
-                    <h3 class="text-xl font-semibold mb-4 flex items-center">
-                        <i class="fa fa-dot-circle-o text-secondary mr-2"></i>
-                        各学院完成率雷达图
-                    </h3>
-                    <div class="h-96 mt-8">
-                        <canvas id="completion-radar"></canvas>
-                    </div>
-                </div>
+
             </div>
             
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
-                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500">
-                    <h3 class="text-xl font-semibold mb-4 flex items-center">
-                        <i class="fa fa-arrow-up text-success mr-2"></i>
-                        进步率排名
-                    </h3>
-                    <div id="progress-rank" class="space-y-4">
-                        <!-- 排名将通过JavaScript动态生成 -->
-                    </div>
-                </div>
-                
-                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 lg:col-span-2">
-                    <h3 class="text-xl font-semibold mb-4 flex items-center">
-                        <i class="fa fa-area-chart text-success mr-2"></i>
-                        各学院进步率情况
-                    </h3>
-                    <div class="h-96 mt-8">
-                        <canvas id="progress-chart"></canvas>
-                    </div>
-                </div>
-                
-                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 lg:col-span-2">
-                    <h3 class="text-xl font-semibold mb-4 flex items-center">
-                        <i class="fa fa-dot-circle-o text-success mr-2"></i>
-                        各学院进步率雷达图
-                    </h3>
-                    <div class="h-96 mt-8">
-                        <canvas id="progress-radar"></canvas>
-                    </div>
-                </div>
-            </div>
+
         </section>
     </main>
 
@@ -323,32 +285,9 @@
             return completionRate;
         }
         
-        // 辅助函数：计算进步率并缓存结果
-        function calculateProgressRate(college) {
-            // 如果已经计算过，直接返回缓存结果
-            if (college._progressRate !== undefined) {
-                return college._progressRate;
-            }
-            
-            const sum2025 = college.tasks.reduce((acc, task) => acc + task.completion2025, 0);
-            const sum2024 = college.tasks.reduce((acc, task) => acc + (task.completion2024 || 0), 0);
-            let progressRate = Math.round(((sum2025 - sum2024) / (college.tasks.length * 100)) * 100);
-            
-            // 如果进步率为0，生成随机的临时假数据（-5%到25%之间）
-            if (progressRate === 0) {
-                progressRate = Math.floor(Math.random() * 31) - 5;
-            }
-            
-            // 缓存结果
-            college._progressRate = progressRate;
-            return progressRate;
-        }
+
         
-        // 辅助函数：计算单个指标的进步率
-        function calculateSingleProgressRate(value2024, value2025) {
-            if (value2024 === 0) return 0;
-            return Math.round(((value2025 - value2024) / value2024) * 100);
-        }
+
         
         // 辅助函数：获取进度条颜色
         function getProgressColor(percentage, withBg = false) {
@@ -358,13 +297,7 @@
             return withBg ? 'bg-danger/20 text-danger' : 'text-danger';
         }
         
-        // 辅助函数：获取进步趋势颜色
-        function getProgressTrendColor(progress) {
-            if (progress >= 10) return 'text-success';
-            if (progress >= 5) return 'text-primary';
-            if (progress >= 0) return 'text-warning';
-            return 'text-danger';
-        }
+
         
         // 更新时间显示
         function updateDateTime() {
@@ -389,7 +322,7 @@
             sortedColleges.forEach((college, index) => {
                 const rate = calculateCompletionRate(college);
                 const rankEl = document.createElement('div');
-                rankEl.className = 'flex items-center justify-between group';
+                rankEl.className = 'grid grid-cols-[440px_1fr] items-center gap-x-4 group';
                 
                 const rankClass = index === 0 ? 'text-warning' : index === 1 ? 'text-warning/90' : index === 2 ? 'text-warning/80' : 'text-white';
                 const rankIcon = index < 3 ? `<i class="fa fa-medal ${rankClass} mr-2"></i>` : '';
@@ -400,7 +333,7 @@
                         ${rankIcon}
                         <span class="text-sm md:text-base group-hover:text-primary transition-colors">${college.name}</span>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center justify-start">
                         <span class="text-lg font-bold ${getProgressColor(rate)}">${rate}%</span>
                     </div>
                 `;
@@ -409,40 +342,7 @@
             });
         }
         
-        // 初始化进步率排行榜
-        function initProgressRank(colleges) {
-            const sortedColleges = [...colleges].sort((a, b) => {
-                const rateA = calculateProgressRate(a);
-                const rateB = calculateProgressRate(b);
-                return rateB - rateA;
-            });
-            
-            const rankContainer = document.getElementById('progress-rank');
-            rankContainer.innerHTML = '';
-            
-            sortedColleges.forEach((college, index) => {
-                const rate = calculateProgressRate(college);
-                const rankEl = document.createElement('div');
-                rankEl.className = 'flex items-center justify-between group';
-                
-                const rankClass = index === 0 ? 'text-success' : index === 1 ? 'text-success/90' : index === 2 ? 'text-success/80' : 'text-white';
-                const rankIcon = index < 3 ? `<i class="fa fa-trophy ${rankClass} mr-2"></i>` : '';
-                
-                rankEl.innerHTML = `
-                    <div class="flex items-center">
-                        <span class="w-8 text-center font-bold ${rankClass}">${index + 1}</span>
-                        ${rankIcon}
-                        <span class="text-sm md:text-base group-hover:text-secondary transition-colors">${college.name}</span>
-                    </div>
-                    <div class="flex items-center">
-                        <i class="fa fa-arrow-up mr-1 ${getProgressTrendColor(rate)}"></i>
-                        <span class="text-lg font-bold ${getProgressTrendColor(rate)}">${rate}%</span>
-                    </div>
-                `;
-                
-                rankContainer.appendChild(rankEl);
-            });
-        }
+
         
         // 渲染合并的学院卡片（左侧完成率，右侧对比）
         function renderMergedCollegeCards(colleges, containerId) {
@@ -456,12 +356,7 @@
                 return rateB - rateA;
             });
             
-            // 对学院按进步率排序，用于计算排名
-            const sortedCollegesByProgress = [...colleges].sort((a, b) => {
-                const rateA = calculateProgressRate(a);
-                const rateB = calculateProgressRate(b);
-                return rateB - rateA;
-            });
+
             
             colleges.forEach((college, collegeIndex) => {
                 const completionRate = calculateCompletionRate(college);
@@ -485,9 +380,9 @@
                             ${college.name}
                         </h3>
                     </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6">
-                        <!-- 左侧：2025年完成率情况 -->
-                        <div class="border-r-4 border-white/40 pr-6">
+                    <div class="grid grid-cols-1 gap-6">
+                        <!-- 2025年任务完成情况 -->
+                        <div>
                             <div class="flex justify-center items-center mb-4">
                                 <h4 class="text-xl font-semibold text-primary flex items-center">
                                     <i class="fa fa-check-circle mr-2 fa-xl"></i>
@@ -523,161 +418,7 @@
                             </div>
                         </div>
                         
-                        <!-- 右侧：年度对比情况 -->
-                        <div>
-                            <div class="relative mb-4">
-                                <div class="flex justify-center items-center">
-                                    <h4 class="text-xl font-semibold text-secondary flex items-center">
-                                        <i class="fa fa-exchange mr-2 fa-xl"></i>
-                                        2024-2025年任务完成对比
-                                    </h4>
-                                    <span class="mx-3"></span>
-                                    <div class="px-4 py-2 rounded-full bg-secondary/20 text-secondary font-semibold text-lg">
-                                        综合进步率: <i class="fa fa-arrow-up mr-1"></i>${progressRate}%
-                                    </div>
-                                </div>
-                                <!-- 统一图例 -->
-                                <div class="absolute right-0 bottom-0 flex items-center space-x-4 text-sm text-white/70">
-                                    <div class="flex items-center">
-                                        <span class="inline-block w-3 h-3 bg-[#165DFF] mr-1"></span>
-                                        <span>2024年</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <span class="inline-block w-3 h-3 bg-[#FFC107] mr-1"></span>
-                                        <span>2025年</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-3">
-                                ${limitedComparisonTasks.map((task, taskIndex) => {
-                                    // 获取具体数值，若没有则使用完成率作为示例值
-                                    const value2024 = task.value2024 ?? (task.completion2024 * 1000 ?? 0);
-                                    const value2025 = task.value2025 ?? (task.completion2025 * 1000 ?? 0);
-                                    
 
-                                    
-                                    // 生成唯一的canvas ID
-                                    const canvasId = `bar-chart-${collegeIndex}-${taskIndex}`;
-                                    
-                                    // 将图表初始化代码添加到页面中
-                                    setTimeout(() => {
-                                        const ctx = document.getElementById(canvasId).getContext('2d');
-                                        new Chart(ctx, {
-                                            type: 'bar',
-                                            data: {
-                                                labels: [''], // 单一横坐标
-                                                datasets: [
-                                                    {
-                                                        label: '2024年',
-                                                        data: [value2024],
-                                                        backgroundColor: '#165DFF',
-                                                        borderColor: 'transparent',
-                                                        borderWidth: 1,
-                                                        borderRadius: 3,
-                                                        barThickness: 20,
-                                                        barPercentage: 0.45,
-                                                        categoryPercentage: 0.9
-                                                    },
-                                                    {
-                                                        label: '2025年',
-                                                        data: [value2025],
-                                                        backgroundColor: '#FFC107', // 改为黄色
-                                                        borderColor: 'transparent',
-                                                        borderWidth: 1,
-                                                        borderRadius: 3,
-                                                        barThickness: 20,
-                                                        barPercentage: 0.45,
-                                                        categoryPercentage: 0.9
-                                                    }
-                                                ]
-                                            },
-                                            options: {
-                                                responsive: true,
-                                                maintainAspectRatio: false,
-                                                layout: {
-                                                    padding: {
-                                                        top: 30 // 为顶部数值预留足够空间
-                                                    }
-                                                },
-                                                plugins: {
-                                                    legend: {
-                                                        display: false
-                                                    },
-                                                    tooltip: {
-                                                        callbacks: {
-                                                            label: function(context) {
-                                                                const label = context.dataset.label || '';
-                                                                return `${label}: ${formatValue(context.raw)}`;
-                                                            }
-                                                        }
-                                                    },
-                                                    datalabels: {
-                                                        enabled: true,
-                                                        align: 'top',
-                                                        anchor: 'end',
-                                                        formatter: function(value) {
-                                                            return formatValue(value);
-                                                        },
-                                                        color: '#ffffff',
-                                                        fontSize: 10,
-                                                        font: {
-                                                            weight: 'bold'
-                                                        },
-                                                        offset: 5
-                                                    }
-                                                },
-                                                scales: {
-                                                    x: {
-                                                        display: false, // 隐藏x轴
-                                                        beginAtZero: true,
-                                                        grid: {
-                                                            display: false // 隐藏x轴网格线
-                                                        },
-                                                        ticks: {
-                                                            display: false // 隐藏x轴刻度
-                                                        }
-                                                    },
-                                                    y: {
-                                                        display: false, // 隐藏y轴
-                                                        beginAtZero: true,
-                                                        grid: {
-                                                            display: false // 隐藏y轴网格线
-                                                        },
-                                                        ticks: {
-                                                            display: false // 隐藏y轴刻度
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        });
-                                    }, 100);
-                                    
-                                    return `
-                                        <div class="bg-white/5 rounded-lg p-2 flex items-center space-x-1 flex-1 min-w-[100px]">
-                                            <!-- 左侧竖排指标名称 -->
-                                            <div class="flex-shrink-0 w-10 h-48 flex items-start justify-end pt-1 pr-1">
-                                                <div class="h-full w-full overflow-hidden">
-                                                    <div class="h-full w-full writing-vertical-lr overflow-hidden relative">
-                                                        <span class="text-xs text-start whitespace-nowrap hover:bg-dark/70 p-1 rounded transition-all inline-block" style="max-height: 100%;">${task.name.replace(/^\d+\.\s*/, '')}</span>
-                                                        <!-- 手动添加渐变遮罩模拟省略号效果 -->
-                                                        <div class="absolute bottom-0 left-0 w-full h-6 bg-gradient-to-t from-dark/90 to-transparent pointer-events-none"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- 右侧图表区域 -->
-                                            <div class="flex-1 min-w-0">
-                                                <div class="flex justify-end mb-1">
-                                                    <span class="text-xs font-bold text-primary">${calculateSingleProgressRate(value2024, value2025)}%</span>
-                                                </div>
-                                                <div class="h-48 bg-white/5 rounded-md p-1 overflow-hidden">
-                                                    <canvas id="${canvasId}"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    `;
-                                }).join('')}
-                            </div>
-                        </div>
                     </div>
                 `;
                 
@@ -688,8 +429,14 @@
         // 初始化完成情况图表
         function initCompletionChart(colleges) {
             const ctx = document.getElementById('completion-chart').getContext('2d');
-            // const labels = colleges.map(c => c.shortName || c.name);
-            const labels = colleges.map(c => {
+            
+            // 对学院按完成率降序排序
+            const sortedColleges = [...colleges].sort((a, b) => {
+                return calculateCompletionRate(b) - calculateCompletionRate(a);
+            });
+            
+            // 生成标签和数据
+            const labels = sortedColleges.map(c => {
                 let name = c.shortName || c.name;
                 // 为"材化学院（含国重实验室）"添加换行
                 if (name.includes('（含国重实验室）')) {
@@ -697,7 +444,7 @@
                 }
                 return name;
             });
-            const data = colleges.map(c => calculateCompletionRate(c));
+            const data = sortedColleges.map(c => calculateCompletionRate(c));
             
             // 销毁现有图表
             if (window.completionChart) {
@@ -731,6 +478,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    indexAxis: 'y', // 设置为水平柱状图
                     plugins: {
                         legend: {
                             display: false
@@ -749,7 +497,7 @@
                                 }
                             }
                         },
-                        // 配置数据标签，在柱子上方显示数字
+                        // 配置数据标签，在柱子右侧显示数字
                         datalabels: {
                             anchor: 'end',
                             align: 'end',
@@ -766,27 +514,6 @@
                     },
                     scales: {
                         x: {
-                            grid: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)',
-                                font: {
-                                    size: 12,
-                                    lineHeight: 1.2
-                                },
-                                maxRotation: 0,
-                                minRotation: 0,
-                                autoSkip: false,
-                                usePointStyle: true,
-                                // 启用多行标签显示
-                                callback: function(value, index, values) {
-                                    return labels[index].split('\n');
-                                }
-                            }
-                        },
-                        y: {
                             beginAtZero: true,
                             max: 100,
                             grid: {
@@ -799,204 +526,31 @@
                                     return value + '%';
                                 }
                             }
-                        }
-                    }
-                }
-            });
-        }
-        
-        // 初始化进步趋势图表
-        function initProgressChart(colleges) {
-            const ctx = document.getElementById('progress-chart').getContext('2d');
-            const labels = colleges.map(c => {
-                let name = c.shortName || c.name;
-                // 为"材化学院（含国重实验室）"添加换行
-                if (name.includes('（含国重实验室）')) {
-                    return name.replace('（含国重实验室）', '\n（含国重实验室）');
-                }
-                return name;
-            });
-            const progressData = colleges.map(c => calculateProgressRate(c));
-            
-            // 销毁现有图表
-            if (window.progressChart) {
-                window.progressChart.destroy();
-            }
-            
-            window.progressChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: '进步率',
-                            data: progressData,
-                            backgroundColor: '#0FC6C2',
-                            borderColor: '#0FC6C2',
-                            borderWidth: 1,
-                            barPercentage: 0.6,
-                            categoryPercentage: 0.7
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false,
-                            position: 'top',
-                            labels: {
-                                color: 'rgba(255, 255, 255, 0.7)',
-                                usePointStyle: true,
-                                pointStyle: 'circle'
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(29, 33, 41, 0.9)',
-                            titleColor: '#fff',
-                            bodyColor: '#fff',
-                            borderColor: 'rgba(255, 255, 255, 0.1)',
-                            borderWidth: 1,
-                            padding: 12,
-                            mode: 'index',
-                            intersect: false
-                        },
-                        // 配置数据标签，在柱子上方显示数字
-                        datalabels: {
-                            anchor: 'end',
-                            align: 'end',
-                            formatter: function(value) {
-                                return value + '%';
-                            },
-                            color: 'rgba(255, 255, 255, 0.9)',
-                            font: {
-                                size: 12,
-                                weight: 'bold'
-                            },
-                            offset: 8
-                        }
-                    },
-                    scales: {
-                        x: {
-                            grid: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)',
-                                font: {
-                                    size: 12,
-                                    lineHeight: 1.2
-                                },
-                                maxRotation: 0,
-                                minRotation: 0,
-                                autoSkip: false,
-                                usePointStyle: true,
-                                // 启用多行标签显示
-                                callback: function(value, index, values) {
-                                    return labels[index].split('\n');
-                                }
-                            }
                         },
                         y: {
-                            type: 'linear',
-                            display: true,
                             position: 'left',
-                            title: {
-                                display: true,
-                                text: '进步率 (%)',
-                                color: 'rgba(255, 255, 255, 0.7)'
-                            },
-                            beginAtZero: true,
-                            // 设置y轴最大值为80%，确保数据标签能完整显示
-                            max: 80,
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.1)',
+                                display: false,
                                 drawBorder: false
                             },
+                            // 增加y轴标签的显示宽度
+                            afterFit: function(axis) {
+                                axis.width = Math.max(axis.width, 200);
+                            },
                             ticks: {
-                                color: '#0FC6C2',
-                                callback: function(value) {
-                                    return value + '%';
-                                }
-                            }
-                        }
-                    },
-                    interaction: {
-                        mode: 'nearest',
-                        axis: 'x',
-                        intersect: false
-                    }
-                }
-            });
-        }
-        
-        // 初始化完成率雷达图
-        function initCompletionRadar(colleges) {
-            const ctx = document.getElementById('completion-radar').getContext('2d');
-            const labels = colleges.map(c => c.shortName || c.name);
-            const data = colleges.map(c => calculateCompletionRate(c));
-            
-            // 销毁现有图表
-            if (window.completionRadar) {
-                window.completionRadar.destroy();
-            }
-            
-            window.completionRadar = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: '完成率 (%)',
-                        data: data,
-                        backgroundColor: 'rgba(22, 93, 255, 0.2)',
-                        borderColor: '#165DFF',
-                        borderWidth: 2,
-                        pointBackgroundColor: '#165DFF',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: '#165DFF'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(29, 33, 41, 0.9)',
-                            titleColor: '#fff',
-                            bodyColor: '#fff',
-                            borderColor: 'rgba(255, 255, 255, 0.1)',
-                            borderWidth: 1,
-                            padding: 12
-                        }
-                    },
-                    scales: {
-                        r: {
-                            beginAtZero: true,
-                            max: 100,
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            angleLines: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            pointLabels: {
-                                color: 'rgba(255, 255, 255, 0.7)',
+                                color: '#ffffff', // 改为纯白色
                                 font: {
-                                    size: 16
-                                }
-                            },
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.5)',
-                                callback: function(value) {
-                                    return value + '%';
+                                    size: 16, // 增大字体大小
+                                    lineHeight: 1.2,
+                                    weight: 'normal'
                                 },
-                                showLabelBackdrop: false
+                                padding: 10, // 增加内边距
+                                maxRotation: 0, // 防止标签旋转
+                                minRotation: 0,
+                                // 启用多行标签显示
+                                callback: function(value, index, values) {
+                                    return labels[index].split('\n');
+                                }
                             }
                         }
                     }
@@ -1004,80 +558,9 @@
             });
         }
         
-        // 初始化进步率雷达图
-        function initProgressRadar(colleges) {
-            const ctx = document.getElementById('progress-radar').getContext('2d');
-            const labels = colleges.map(c => c.shortName || c.name);
-            const data = colleges.map(c => {
-                const progress = calculateProgressRate(c);
-                // 负值设为0
-                return Math.max(progress, 0);
-            });
-            
-            // 销毁现有图表
-            if (window.progressRadar) {
-                window.progressRadar.destroy();
-            }
-            
-            window.progressRadar = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: '进步率 (%)',
-                        data: data,
-                        backgroundColor: 'rgba(15, 198, 194, 0.2)',
-                        borderColor: '#0FC6C2',
-                        borderWidth: 2,
-                        pointBackgroundColor: '#0FC6C2',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: '#0FC6C2'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(29, 33, 41, 0.9)',
-                            titleColor: '#fff',
-                            bodyColor: '#fff',
-                            borderColor: 'rgba(255, 255, 255, 0.1)',
-                            borderWidth: 1,
-                            padding: 12
-                        }
-                    },
-                    scales: {
-                        r: {
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            angleLines: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            pointLabels: {
-                                color: 'rgba(255, 255, 255, 0.7)',
-                                font: {
-                                    size: 16
-                                }
-                            },
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.5)',
-                                callback: function(value) {
-                                    return value + '%';
-                                },
-                                showLabelBackdrop: false
-                            }
-                        }
-                    }
-                }
-            });
-        }
+
+        
+
         
 
         
@@ -1107,10 +590,6 @@
                 // 更新统计图表
                 initCompletionRank(scienceColleges);
                 initCompletionChart(scienceColleges);
-                initCompletionRadar(scienceColleges);
-                initProgressRank(scienceColleges);
-                initProgressChart(scienceColleges);
-                initProgressRadar(scienceColleges);
             });
             
             document.getElementById('humanity-tab').addEventListener('click', () => {
@@ -1136,10 +615,6 @@
                 // 更新统计图表
                 initCompletionRank(humanityColleges);
                 initCompletionChart(humanityColleges);
-                initCompletionRadar(humanityColleges);
-                initProgressRank(humanityColleges);
-                initProgressChart(humanityColleges);
-                initProgressRadar(humanityColleges);
             });
             
             // 独立平台标签事件
@@ -1166,10 +641,6 @@
                 // 更新统计图表
                 initCompletionRank(platformColleges);
                 initCompletionChart(platformColleges);
-                initCompletionRadar(platformColleges);
-                initProgressRank(platformColleges);
-                initProgressChart(platformColleges);
-                initProgressRadar(platformColleges);
             });
             
             // 新型研发机构标签事件
@@ -1196,10 +667,6 @@
                 // 更新统计图表
                 initCompletionRank(institutionColleges);
                 initCompletionChart(institutionColleges);
-                initCompletionRadar(institutionColleges);
-                initProgressRank(institutionColleges);
-                initProgressChart(institutionColleges);
-                initProgressRadar(institutionColleges);
             });
         }
         
@@ -1231,18 +698,11 @@
             // 初始化排行榜和图表
             initCompletionRank(scienceColleges);
             initCompletionChart(scienceColleges);
-            initCompletionRadar(scienceColleges);
-            initProgressRank(scienceColleges);
-            initProgressChart(scienceColleges);
-            initProgressRadar(scienceColleges);
             
             // 添加响应式调整
             window.addEventListener('resize', () => {
                 const currentColleges = document.getElementById('science-content').classList.contains('hidden') ? humanityColleges : scienceColleges;
                 initCompletionChart(currentColleges);
-                initCompletionRadar(currentColleges);
-                initProgressChart(currentColleges);
-                initProgressRadar(currentColleges);
             });
         });
         
