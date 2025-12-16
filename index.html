@@ -225,28 +225,26 @@
             </div>
             
             <!-- 总结内容 -->
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
-                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 lg:col-span-2">
-                    <h3 class="text-xl font-semibold mb-4 flex items-center">
-                        <i class="fa fa-trophy text-warning mr-2"></i>
-                        完成率排名
-                    </h3>
-                    <div id="completion-rank" class="space-y-4">
-                        <!-- 排名将通过JavaScript动态生成 -->
-                    </div>
-                </div>
-                
-                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500 lg:col-span-3">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500">
                     <h3 class="text-xl font-semibold mb-4 flex items-center">
                         <i class="fa fa-pie-chart text-secondary mr-2"></i>
-                        各学院完成率情况
+                        理工类学院年度目标完成率情况
                     </h3>
                     <div class="h-[520px] mt-8" style="height: 520px;">
-                        <canvas id="completion-chart"></canvas>
+                        <canvas id="science-completion-chart"></canvas>
                     </div>
                 </div>
                 
-
+                <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fa fa-pie-chart text-secondary mr-2"></i>
+                        文科类学院年度目标完成率情况
+                    </h3>
+                    <div class="h-[520px] mt-8" style="height: 520px;">
+                        <canvas id="humanity-completion-chart"></canvas>
+                    </div>
+                </div>
             </div>
             
 
@@ -291,9 +289,7 @@
         
         // 辅助函数：获取进度条颜色
         function getProgressColor(percentage, withBg = false) {
-            if (percentage >= 90) return withBg ? 'bg-success/20 text-success' : 'text-success';
-            if (percentage >= 75) return withBg ? 'bg-primary/20 text-primary' : 'text-primary';
-            if (percentage >= 60) return withBg ? 'bg-warning/20 text-warning' : 'text-warning';
+            if (percentage >= 75) return withBg ? 'bg-warning/20 text-warning' : 'text-warning';
             return withBg ? 'bg-danger/20 text-danger' : 'text-danger';
         }
         
@@ -360,9 +356,6 @@
             
             colleges.forEach((college, collegeIndex) => {
                 const completionRate = calculateCompletionRate(college);
-                // 计算综合进步率，使用comparisonTasks数据
-                const comparisonProgressRate = college.comparisonTasks.reduce((acc, task) => acc + task.progressRate, 0) / Math.max(college.comparisonTasks.length, 1);
-                const progressRate = Math.round(comparisonProgressRate);
                 
                 const card = document.createElement('div');
                 card.className = 'bg-dark/50 rounded-xl border border-white/10 p-5 card-glass card-hover transition-all duration-500 animate-fadeIn';
@@ -381,25 +374,44 @@
                         </h3>
                     </div>
                     <div class="grid grid-cols-1 gap-6">
-                        <!-- 2025年任务完成情况 -->
+                        <!-- 2025年年度目标完成情况 -->
+                        <div class="mb-6">
+                            <div class="flex justify-center items-center mb-4">
+                                <h4 class="text-xl font-semibold text-warning flex items-center">
+                                    <i class="fa fa-check-circle mr-2 fa-xl"></i>
+                                    2025年年度目标完成情况
+                                </h4>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                                ${college.tasks.map((task, taskIndex) => `
+                                    <div class="bg-white/5 rounded-lg p-3">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="text-sm truncate max-w-[80%] hover:whitespace-normal hover:text-wrap hover:bg-dark/70 p-1 rounded transition-all">${task.name.replace(/^\d+\.\s*/, '')}</span>
+                                            <span class="text-xs font-semibold ${getProgressColor(task.completion2025)}">
+                                                ${task.completion2025}%
+                                            </span>
+                                        </div>
+                                        <div class="h-2 bg-white/10 rounded-full overflow-hidden border border-[#1292e0]/100">
+                                            <div 
+                                                class="h-full rounded-full progress-bar progress-bg"
+                                                style="--progress-width: ${task.completion2025}%; animation-delay: ${0.2 + taskIndex * 0.1}s"
+                                            ></div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <!-- 2025年期望目标完成情况 -->
                         <div>
                             <div class="flex justify-center items-center mb-4">
-                                <h4 class="text-xl font-semibold text-primary flex items-center">
-                                    <i class="fa fa-check-circle mr-2 fa-xl"></i>
-                                    2025年任务完成情况
+                                <h4 class="text-xl font-semibold text-warning flex items-center">
+                                    <i class="fa fa-star mr-2 fa-xl"></i>
+                                    2025年期望目标完成情况
                                 </h4>
-                                <span class="mx-3"></span>
-                                <div class="flex space-x-3">
-                                    <div class="px-4 py-2 rounded-full bg-warning/20 text-warning font-semibold text-lg">
-                                        年度目标完成率: ${completionRate}%
-                                    </div>
-                                    <div class="px-4 py-2 rounded-full bg-warning/20 text-warning font-semibold text-lg">
-                                        期望目标完成率: 85%
-                                    </div>
-                                </div>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                                ${college.tasks.map((task, taskIndex) => `
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                                ${college.comparisonTasks.map((task, taskIndex) => `
                                     <div class="bg-white/5 rounded-lg p-3">
                                         <div class="flex justify-between items-center mb-2">
                                             <span class="text-sm truncate max-w-[80%] hover:whitespace-normal hover:text-wrap hover:bg-dark/70 p-1 rounded transition-all">${task.name.replace(/^\d+\.\s*/, '')}</span>
@@ -427,8 +439,8 @@
         }
         
         // 初始化完成情况图表
-        function initCompletionChart(colleges) {
-            const ctx = document.getElementById('completion-chart').getContext('2d');
+        function initCompletionChart(colleges, canvasId = 'completion-chart') {
+            const ctx = document.getElementById(canvasId).getContext('2d');
             
             // 对学院按完成率降序排序
             const sortedColleges = [...colleges].sort((a, b) => {
@@ -447,11 +459,14 @@
             const data = sortedColleges.map(c => calculateCompletionRate(c));
             
             // 销毁现有图表
-            if (window.completionChart) {
-                window.completionChart.destroy();
+            if (!window.completionCharts) {
+                window.completionCharts = {};
+            }
+            if (window.completionCharts[canvasId]) {
+                window.completionCharts[canvasId].destroy();
             }
             
-            window.completionChart = new Chart(ctx, {
+            window.completionCharts[canvasId] = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: labels,
@@ -566,6 +581,9 @@
         
         // 初始化赛道切换
         function initTabs() {
+            // 获取综合分析板块
+            const summarySection = document.getElementById('summary-section');
+            
             // 合并情况赛道切换
             document.getElementById('science-tab').addEventListener('click', () => {
                 // 重置所有标签状态
@@ -587,9 +605,13 @@
                 // 显示当前内容
                 document.getElementById('science-content').classList.remove('hidden');
                 
+                // 显示综合分析板块
+                summarySection.style.display = 'block';
+                summarySection.style.opacity = '1';
+                
                 // 更新统计图表
                 initCompletionRank(scienceColleges);
-                initCompletionChart(scienceColleges);
+                initCompletionChart(scienceColleges, 'science-completion-chart');
             });
             
             document.getElementById('humanity-tab').addEventListener('click', () => {
@@ -612,9 +634,13 @@
                 // 显示当前内容
                 document.getElementById('humanity-content').classList.remove('hidden');
                 
+                // 显示综合分析板块
+                summarySection.style.display = 'block';
+                summarySection.style.opacity = '1';
+                
                 // 更新统计图表
                 initCompletionRank(humanityColleges);
-                initCompletionChart(humanityColleges);
+                initCompletionChart(humanityColleges, 'humanity-completion-chart');
             });
             
             // 独立平台标签事件
@@ -637,6 +663,10 @@
                 
                 // 显示当前内容
                 document.getElementById('platform-content').classList.remove('hidden');
+                
+                // 隐藏综合分析板块
+                summarySection.style.display = 'none';
+                summarySection.style.opacity = '0';
                 
                 // 更新统计图表
                 initCompletionRank(platformColleges);
@@ -663,6 +693,10 @@
                 
                 // 显示当前内容
                 document.getElementById('institution-content').classList.remove('hidden');
+                
+                // 隐藏综合分析板块
+                summarySection.style.display = 'none';
+                summarySection.style.opacity = '0';
                 
                 // 更新统计图表
                 initCompletionRank(institutionColleges);
@@ -695,14 +729,14 @@
             renderMergedCollegeCards(platformColleges, 'platform-content');
             renderMergedCollegeCards(institutionColleges, 'institution-content');
             
-            // 初始化排行榜和图表
-            initCompletionRank(scienceColleges);
-            initCompletionChart(scienceColleges);
+            // 初始化图表
+            initCompletionChart(scienceColleges, 'science-completion-chart');
+            initCompletionChart(humanityColleges, 'humanity-completion-chart');
             
             // 添加响应式调整
             window.addEventListener('resize', () => {
-                const currentColleges = document.getElementById('science-content').classList.contains('hidden') ? humanityColleges : scienceColleges;
-                initCompletionChart(currentColleges);
+                initCompletionChart(scienceColleges, 'science-completion-chart');
+                initCompletionChart(humanityColleges, 'humanity-completion-chart');
             });
         });
         
