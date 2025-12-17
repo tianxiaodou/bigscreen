@@ -32,7 +32,7 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#165DFF',
+                        primary: '#f7bebf',
                         secondary: '#0FC6C2',
                         success: '#00B42A',
                         warning: '#FF7D00',
@@ -59,11 +59,12 @@
                 text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
             .card-glass {
-                backdrop-filter: blur(8px);
-                background-color: rgba(255, 255, 255, 0.05);
+                backdrop-filter: none;
+                background-color: #fdfce7;
+                opacity: 1;
             }
             .progress-bg {
-                background: linear-gradient(90deg, #165DFF 0%, #0FC6C2 100%);
+                background: linear-gradient(90deg, #7b0202 0%, #fd6161 100%);
             }
         }
     .writing-vertical-lr {
@@ -76,9 +77,10 @@
         /* 基础样式 */
         body {
             background-color: #0a101f;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(22, 93, 255, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(15, 198, 194, 0.1) 0%, transparent 20%);
+            background-image: url('redbackground.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             background-attachment: fixed;
             overflow-x: hidden;
         }
@@ -146,7 +148,7 @@
 </head>
 <body class="text-white min-h-screen">
     <!-- 顶部标题栏 -->
-        <header class="bg-dark/80 backdrop-blur-md border-b border-white/10 fixed top-0 left-0 right-0 z-50 shadow-lg">
+        <header class="bg-red-900 backdrop-blur-md border-b border-white/10 fixed top-0 left-0 right-0 z-50 shadow-lg">
         <div class="max-w-[95vw] mx-auto px-6 py-4">
             <div class="flex flex-col md:flex-row items-center gap-4">
                 <div class="flex-grow"></div>
@@ -161,7 +163,7 @@
                     <div class="text-[clamp(1rem,2vw,1.5rem)] font-semibold text-primary">
                         <span id="current-time"></span>
                     </div>
-                    <div class="text-info text-sm">
+                    <div class="text-[rgb(251_229_231)] text-sm">
                         <span id="current-date"></span>
                     </div>
                 </div>
@@ -182,7 +184,7 @@
             
             <!-- 赛道切换 -->
             <div class="flex flex-wrap gap-4 mb-8">
-                <button id="science-tab" class="px-6 py-3 bg-primary text-white rounded-lg font-semibold transition-all duration-300">
+                <button id="science-tab" class="px-6 py-3 bg-[#f63c3f] text-white rounded-lg font-semibold transition-all duration-300">
                     理工类学院
                 </button>
                 <button id="humanity-tab" class="px-6 py-3 bg-white/10 text-white hover:bg-white/20 rounded-lg font-semibold transition-all duration-300">
@@ -216,10 +218,10 @@
 
         <!-- 移到最后的总结区域 -->
         <section id="summary-section" class="transition-opacity duration-300">
-            <div class="flex items-center gap-3 mb-6 mt-12">
-                <div class="h-8 w-1 bg-secondary rounded-full"></div>
+            <div class="flex items-center gap-3 mb-6 mt-6">
+                <div class="h-8 w-1 bg-primary rounded-full"></div>
                 <h2 class="text-[clamp(1rem,1.5vw,1.6rem)] font-bold">
-                    <i class="fa fa-chart-line mr-2 text-secondary"></i>
+                    <i class="fa fa-tasks mr-2 text-primary"></i>
                     综合分析
                 </h2>
             </div>
@@ -227,8 +229,8 @@
             <!-- 总结内容 -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500">
-                    <h3 class="text-xl font-semibold mb-4 flex items-center">
-                        <i class="fa fa-pie-chart text-secondary mr-2"></i>
+                    <h3 class="text-xl font-semibold mb-4 flex items-center text-[#c40909]">
+                        <i class="fa fa-pie-chart text-[#c40909] mr-2"></i>
                         理工类学院年度目标完成率情况
                     </h3>
                     <div class="h-[520px] mt-8" style="height: 520px;">
@@ -237,8 +239,8 @@
                 </div>
                 
                 <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500">
-                    <h3 class="text-xl font-semibold mb-4 flex items-center">
-                        <i class="fa fa-pie-chart text-secondary mr-2"></i>
+                    <h3 class="text-xl font-semibold mb-4 flex items-center text-[#c40909]">
+                        <i class="fa fa-pie-chart text-[#c40909] mr-2"></i>
                         文科类学院年度目标完成率情况
                     </h3>
                     <div class="h-[520px] mt-8" style="height: 520px;">
@@ -358,7 +360,7 @@
                 const completionRate = calculateCompletionRate(college);
                 
                 const card = document.createElement('div');
-                card.className = 'bg-dark/50 rounded-xl border border-white/10 p-5 card-glass card-hover transition-all duration-500 animate-fadeIn';
+                card.className = 'bg-[#fdfce7] rounded-xl border border-gray/20 p-5 card-glass card-hover transition-all duration-500 animate-fadeIn';
                 card.style.animationDelay = `${0.1 * (collegeIndex % 6)}s`;
                 
                 // 使用所有任务指标
@@ -369,9 +371,9 @@
                 card.innerHTML = `
                     <div class="flex justify-center items-center mb-6">
                         <h3 class="text-2xl font-semibold flex items-center">
-                            <i class="fa fa-university text-primary mr-2 fa-xl"></i>
-                            ${college.name}
-                        </h3>
+                              <i class="fa fa-university text-[#c40909] mr-2 fa-xl"></i>
+                              <span class="text-[#c40909]">${college.name}</span>
+                          </h3>
                     </div>
                     <div class="grid grid-cols-1 gap-6">
                         <!-- 2025年年度目标完成情况 -->
@@ -386,12 +388,12 @@
                                 ${college.tasks.map((task, taskIndex) => `
                                     <div class="bg-white/5 rounded-lg p-3">
                                         <div class="flex justify-between items-center mb-2">
-                                            <span class="text-sm truncate max-w-[80%] hover:whitespace-normal hover:text-wrap hover:bg-dark/70 p-1 rounded transition-all">${task.name.replace(/^\d+\.\s*/, '')}</span>
+                                            <span class="text-sm truncate max-w-[80%] hover:whitespace-normal hover:text-wrap hover:bg-gray/10 p-1 rounded transition-all text-black">${task.name.replace(/^\d+\.\s*/, '')}</span>
                                             <span class="text-xs font-semibold ${getProgressColor(task.completion2025)}">
                                                 ${task.completion2025}%
                                             </span>
                                         </div>
-                                        <div class="h-2 bg-white/10 rounded-full overflow-hidden border border-[#1292e0]/100">
+                                        <div class="h-2 bg-white/10 rounded-full overflow-hidden border border-[#900000]/100">
                                             <div 
                                                 class="h-full rounded-full progress-bar progress-bg"
                                                 style="--progress-width: ${task.completion2025}%; animation-delay: ${0.2 + taskIndex * 0.1}s"
@@ -414,12 +416,12 @@
                                 ${college.comparisonTasks.map((task, taskIndex) => `
                                     <div class="bg-white/5 rounded-lg p-3">
                                         <div class="flex justify-between items-center mb-2">
-                                            <span class="text-sm truncate max-w-[80%] hover:whitespace-normal hover:text-wrap hover:bg-dark/70 p-1 rounded transition-all">${task.name.replace(/^\d+\.\s*/, '')}</span>
+                                            <span class="text-sm truncate max-w-[80%] hover:whitespace-normal hover:text-wrap hover:bg-gray/10 p-1 rounded transition-all text-black">${task.name.replace(/^\d+\.\s*/, '')}</span>
                                             <span class="text-xs font-semibold ${getProgressColor(task.completion2025)}">
                                                 ${task.completion2025}%
                                             </span>
                                         </div>
-                                        <div class="h-2 bg-white/10 rounded-full overflow-hidden border border-[#1292e0]/100">
+                                        <div class="h-2 bg-white/10 rounded-full overflow-hidden border border-[#900000]/100">
                                             <div 
                                                 class="h-full rounded-full progress-bar progress-bg"
                                                 style="--progress-width: ${task.completion2025}%; animation-delay: ${0.2 + taskIndex * 0.1}s"
@@ -519,7 +521,7 @@
                             formatter: function(value) {
                                 return value + '%';
                             },
-                            color: 'rgba(255, 255, 255, 0.9)',
+                            color: 'rgba(0, 0, 0, 0.9)',
                             font: {
                                 size: 12,
                                 weight: 'bold'
@@ -532,11 +534,11 @@
                             beginAtZero: true,
                             max: 100,
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.1)',
+                                color: 'rgba(0, 0, 0, 0.1)',
                                 drawBorder: false
                             },
                             ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)',
+                                color: 'rgba(0, 0, 0, 0.7)',
                                 callback: function(value) {
                                     return value + '%';
                                 }
@@ -553,7 +555,7 @@
                                 axis.width = Math.max(axis.width, 200);
                             },
                             ticks: {
-                                color: '#ffffff', // 改为纯白色
+                                color: 'rgba(0, 0, 0, 1)', // 改为黑色
                                 font: {
                                     size: 16, // 增大字体大小
                                     lineHeight: 1.2,
@@ -593,7 +595,7 @@
                 });
                 
                 // 显示当前标签
-                document.getElementById('science-tab').classList.add('bg-primary');
+                document.getElementById('science-tab').classList.add('bg-[#f63c3f]');
                 document.getElementById('science-tab').classList.remove('bg-white/10', 'hover:bg-white/20');
                 
                 // 隐藏所有内容
@@ -622,7 +624,7 @@
                 });
                 
                 // 显示当前标签
-                document.getElementById('humanity-tab').classList.add('bg-primary');
+                document.getElementById('humanity-tab').classList.add('bg-[#f63c3f]');
                 document.getElementById('humanity-tab').classList.remove('bg-white/10', 'hover:bg-white/20');
                 
                 // 隐藏所有内容
@@ -652,7 +654,7 @@
                 });
                 
                 // 显示当前标签
-                document.getElementById('platform-tab').classList.add('bg-primary');
+                document.getElementById('platform-tab').classList.add('bg-[#f63c3f]');
                 document.getElementById('platform-tab').classList.remove('bg-white/10', 'hover:bg-white/20');
                 
                 // 隐藏所有内容
@@ -682,7 +684,7 @@
                 });
                 
                 // 显示当前标签
-                document.getElementById('institution-tab').classList.add('bg-primary');
+                document.getElementById('institution-tab').classList.add('bg-[#f63c3f]');
                 document.getElementById('institution-tab').classList.remove('bg-white/10', 'hover:bg-white/20');
                 
                 // 隐藏所有内容
