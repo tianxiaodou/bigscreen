@@ -196,6 +196,9 @@
                 <button id="institution-tab" class="px-6 py-3 bg-white/10 text-white hover:bg-white/20 rounded-lg font-semibold transition-all duration-300">
                     新型研发机构
                 </button>
+                <button id="research-tab" class="px-6 py-3 bg-white/10 text-white hover:bg-white/20 rounded-lg font-semibold transition-all duration-300">
+                    科研业绩统计
+                </button>
             </div>
             
             <!-- 学院数据展示 -->
@@ -213,6 +216,31 @@
             
             <div id="institution-content" class="space-y-6 hidden">
                 <!-- 新型研发机构数据将通过JavaScript动态生成 -->
+            </div>
+            
+            <!-- 科研业绩统计内容 -->
+            <div id="research-content" class="space-y-6 hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center text-[#165DFF]">
+                            <i class="fa fa-bar-chart text-[#165DFF] mr-2"></i>
+                            科研经费情况
+                        </h3>
+                        <div class="h-[520px] mt-8" style="height: 520px;">
+                            <canvas id="research-funding-chart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-dark/50 rounded-xl border border-white/10 p-6 card-glass card-hover transition-all duration-500">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center text-[#00B42A]">
+                            <i class="fa fa-bar-chart text-[#00B42A] mr-2"></i>
+                            人均科研经费情况
+                        </h3>
+                        <div class="h-[520px] mt-8" style="height: 520px;">
+                            <canvas id="research-received-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -275,10 +303,10 @@
             const sum = college.tasks.reduce((acc, task) => acc + task.completion2025, 0);
             let completionRate = Math.round((sum / (college.tasks.length * 100)) * 100);
             
-            // 如果完成率为0，生成随机的临时假数据（40%-85%之间）
-            if (completionRate === 0) {
-                completionRate = Math.floor(Math.random() * 46) + 40;
-            }
+            // // 如果完成率为0，生成随机的临时假数据（40%-85%之间）
+            // if (completionRate === 0) {
+            //     completionRate = Math.floor(Math.random() * 46) + 40;
+            // }
             
             // 缓存结果
             college._completionRate = completionRate;
@@ -291,8 +319,30 @@
         
         // 辅助函数：获取进度条颜色
         function getProgressColor(percentage, withBg = false) {
-            if (percentage >= 75) return withBg ? 'bg-warning/20 text-warning' : 'text-warning';
-            return withBg ? 'bg-danger/20 text-danger' : 'text-danger';
+            if (percentage >= 80) {
+                // 超过80%：绿色（超完成较好）
+                return withBg ? 'bg-green-500/20 text-green-600' : 'text-green-600';
+            } else if (percentage >= 60) {
+                // 60%-80%：蓝色（完成度一般）
+                return withBg ? 'bg-blue-500/20 text-blue-600' : 'text-blue-600';
+            } else {
+                // 60%以下：红色（完成度低）
+                return withBg ? 'bg-red-500/20 text-red-600' : 'text-red-600';
+            }
+        }
+        
+        // 辅助函数：获取进度条背景色
+        function getProgressBarColor(percentage) {
+            if (percentage >= 80) {
+                // 超过80%：绿色（超完成较好）
+                return 'bg-green-500';
+            } else if (percentage >= 60) {
+                // 60%-80%：蓝色（完成度一般）
+                return 'bg-blue-500';
+            } else {
+                // 60%以下：红色（完成度低）
+                return 'bg-red-500';
+            }
         }
         
 
@@ -393,9 +443,14 @@
                                                 ${task.completion2025}%
                                             </span>
                                         </div>
+                                        ${task.tasks0 !== undefined && task.taskscomple !== undefined ? `
+                                        <div class="text-xs text-gray-600 mb-1">
+                                            目标值: ${task.tasks0} | 完成值: ${task.taskscomple}
+                                        </div>
+                                        ` : ''}
                                         <div class="h-2 bg-white/10 rounded-full overflow-hidden border border-[#900000]/100">
                                             <div 
-                                                class="h-full rounded-full progress-bar progress-bg"
+                                                class="h-full rounded-full progress-bar ${getProgressBarColor(task.completion2025)}"
                                                 style="--progress-width: ${task.completion2025}%; animation-delay: ${0.2 + taskIndex * 0.1}s"
                                             ></div>
                                         </div>
@@ -421,9 +476,14 @@
                                                 ${task.completion2025}%
                                             </span>
                                         </div>
+                                        ${task.tasks0 !== undefined && task.taskscomple !== undefined ? `
+                                        <div class="text-xs text-gray-600 mb-1">
+                                            目标值: ${task.tasks0} | 完成值: ${task.taskscomple}
+                                        </div>
+                                        ` : ''}
                                         <div class="h-2 bg-white/10 rounded-full overflow-hidden border border-[#900000]/100">
                                             <div 
-                                                class="h-full rounded-full progress-bar progress-bg"
+                                                class="h-full rounded-full progress-bar ${getProgressBarColor(task.completion2025)}"
                                                 style="--progress-width: ${task.completion2025}%; animation-delay: ${0.2 + taskIndex * 0.1}s"
                                             ></div>
                                         </div>
@@ -532,7 +592,7 @@
                     scales: {
                         x: {
                             beginAtZero: true,
-                            max: 100,
+                            max: 260,
                             grid: {
                                 color: 'rgba(0, 0, 0, 0.1)',
                                 drawBorder: false
@@ -575,6 +635,222 @@
             });
         }
         
+        // 初始化科研业绩统计图表
+        function initResearchCharts() {
+            // 销毁现有图表
+            if (window.researchCharts) {
+                if (window.researchCharts.fundingChart) {
+                    window.researchCharts.fundingChart.destroy();
+                }
+                if (window.researchCharts.receivedChart) {
+                    window.researchCharts.receivedChart.destroy();
+                }
+            }
+            window.researchCharts = {};
+            
+            // 左侧：科研经费情况图表（总经费，按科研立项总经费排序）
+            const fundingCtx = document.getElementById('research-funding-chart').getContext('2d');
+            // 按科研立项总经费从高到低排序
+            const sortedFundingData = [...researchPerformanceData].sort((a, b) => b.researchFunding - a.researchFunding);
+            const labels = sortedFundingData.map(c => c.name);
+            const totalFundingData = sortedFundingData.map(c => c.researchFunding);
+            const totalReceivedData = sortedFundingData.map(c => c.receivedFunding);
+            
+            window.researchCharts.fundingChart = new Chart(fundingCtx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: '科研立项总经费（万元）',
+                            data: totalFundingData,
+                            backgroundColor: 'rgba(22, 93, 255, 0.8)',
+                            borderColor: 'rgba(22, 93, 255, 1)',
+                            borderWidth: 1,
+                            barPercentage: 0.7,
+                            categoryPercentage: 0.6
+                        },
+                        {
+                            label: '科研到账总经费（万元）',
+                            data: totalReceivedData,
+                            backgroundColor: 'rgba(0, 180, 42, 0.8)',
+                            borderColor: 'rgba(0, 180, 42, 1)',
+                            borderWidth: 1,
+                            barPercentage: 0.7,
+                            categoryPercentage: 0.6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#000',
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(29, 33, 41, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            borderWidth: 1,
+                            padding: 12
+                        },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: function(value) {
+                                return value.toFixed(2);
+                            },
+                            color: 'rgba(0, 0, 0, 0.8)',
+                            font: {
+                                size: 10,
+                                weight: 'bold'
+                            },
+                            offset: 4
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: 'rgba(0, 0, 0, 0.8)',
+                                font: {
+                                    size: 12
+                                },
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: 'rgba(0, 0, 0, 0.8)',
+                                callback: function(value) {
+                                    return value + '万元';
+                                }
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels]
+            });
+            
+            // 右侧：人均科研经费情况图表（按人均科研立项经费排序）
+            const receivedCtx = document.getElementById('research-received-chart').getContext('2d');
+            // 按人均科研立项经费从高到低排序
+            const sortedPerCapitaData = [...researchPerformanceData].sort((a, b) => b.researchFundingPerCapita - a.researchFundingPerCapita);
+            const perCapitaFundingData = sortedPerCapitaData.map(c => c.researchFundingPerCapita);
+            const perCapitaReceivedData = sortedPerCapitaData.map(c => c.receivedFundingPerCapita);
+            const perCapitaLabels = sortedPerCapitaData.map(c => c.name);
+            
+            window.researchCharts.receivedChart = new Chart(receivedCtx, {
+                type: 'bar',
+                data: {
+                    labels: perCapitaLabels,
+                    datasets: [
+                        {
+                            label: '人均科研立项经费（万元）',
+                            data: perCapitaFundingData,
+                            backgroundColor: 'rgba(255, 125, 0, 0.8)',
+                            borderColor: 'rgba(255, 125, 0, 1)',
+                            borderWidth: 1,
+                            barPercentage: 0.7,
+                            categoryPercentage: 0.6
+                        },
+                        {
+                            label: '人均科研到账经费（万元）',
+                            data: perCapitaReceivedData,
+                            backgroundColor: 'rgba(245, 63, 63, 0.8)',
+                            borderColor: 'rgba(245, 63, 63, 1)',
+                            borderWidth: 1,
+                            barPercentage: 0.7,
+                            categoryPercentage: 0.6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#000',
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(29, 33, 41, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            borderWidth: 1,
+                            padding: 12
+                        },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: function(value) {
+                                return value.toFixed(2);
+                            },
+                            color: 'rgba(0, 0, 0, 0.8)',
+                            font: {
+                                size: 10,
+                                weight: 'bold'
+                            },
+                            offset: 4
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: 'rgba(0, 0, 0, 0.8)',
+                                font: {
+                                    size: 12
+                                },
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: 'rgba(0, 0, 0, 0.8)',
+                                callback: function(value) {
+                                    return value + '万元';
+                                }
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels]
+            });
+        }
+        
 
         
 
@@ -603,6 +879,7 @@
                 document.getElementById('humanity-content').classList.add('hidden');
                 document.getElementById('platform-content').classList.add('hidden');
                 document.getElementById('institution-content').classList.add('hidden');
+                document.getElementById('research-content').classList.add('hidden');
                 
                 // 显示当前内容
                 document.getElementById('science-content').classList.remove('hidden');
@@ -632,6 +909,7 @@
                 document.getElementById('humanity-content').classList.add('hidden');
                 document.getElementById('platform-content').classList.add('hidden');
                 document.getElementById('institution-content').classList.add('hidden');
+                document.getElementById('research-content').classList.add('hidden');
                 
                 // 显示当前内容
                 document.getElementById('humanity-content').classList.remove('hidden');
@@ -662,6 +940,7 @@
                 document.getElementById('humanity-content').classList.add('hidden');
                 document.getElementById('platform-content').classList.add('hidden');
                 document.getElementById('institution-content').classList.add('hidden');
+                document.getElementById('research-content').classList.add('hidden');
                 
                 // 显示当前内容
                 document.getElementById('platform-content').classList.remove('hidden');
@@ -692,6 +971,7 @@
                 document.getElementById('humanity-content').classList.add('hidden');
                 document.getElementById('platform-content').classList.add('hidden');
                 document.getElementById('institution-content').classList.add('hidden');
+                document.getElementById('research-content').classList.add('hidden');
                 
                 // 显示当前内容
                 document.getElementById('institution-content').classList.remove('hidden');
@@ -703,6 +983,36 @@
                 // 更新统计图表
                 initCompletionRank(institutionColleges);
                 initCompletionChart(institutionColleges);
+            });
+            
+            // 科研业绩统计标签事件
+            document.getElementById('research-tab').addEventListener('click', () => {
+                // 重置所有标签状态
+                document.querySelectorAll('[id$="-tab"]').forEach(btn => {
+                    btn.classList.remove('bg-primary');
+                    btn.classList.add('bg-white/10', 'hover:bg-white/20');
+                });
+                
+                // 显示当前标签
+                document.getElementById('research-tab').classList.add('bg-[#f63c3f]');
+                document.getElementById('research-tab').classList.remove('bg-white/10', 'hover:bg-white/20');
+                
+                // 隐藏所有内容
+                document.getElementById('science-content').classList.add('hidden');
+                document.getElementById('humanity-content').classList.add('hidden');
+                document.getElementById('platform-content').classList.add('hidden');
+                document.getElementById('institution-content').classList.add('hidden');
+                document.getElementById('research-content').classList.add('hidden');
+                
+                // 显示当前内容
+                document.getElementById('research-content').classList.remove('hidden');
+                
+                // 隐藏综合分析板块
+                summarySection.style.display = 'none';
+                summarySection.style.opacity = '0';
+                
+                // 初始化科研业绩图表
+                initResearchCharts();
             });
         }
         
